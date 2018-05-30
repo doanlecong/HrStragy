@@ -5,8 +5,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
           integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/glide-core.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/glide-theme.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/glide-core.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/glide-theme.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 @endsection
 
@@ -332,7 +332,7 @@
 
 @section('addScript')
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('js/glide.min.js') }}"></script>
+    <script src="{{ secure_asset('js/glide.min.js') }}"></script>
     <script>
         var glide = new Glide('.glide', {
             type: 'carousel',
