@@ -11653,6 +11653,12 @@ body > .container {
   padding-right: 0px !important;
 }
 
+.input-group-text {
+  border-radius: 0;
+  background-color: transparent;
+  border-color: #5ccf51 !important;
+}
+
 .form-control {
   border-color: #5ccf51;
 }
