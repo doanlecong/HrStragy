@@ -1,0 +1,1 @@
+require('@glidejs/glide/src/index');
