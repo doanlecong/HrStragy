@@ -11,5 +11,8 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.js('resources/assets/js/app.js', 'public/js/app.js')
+    .js('resources/assets/js/glide.js','public/js/glide.js')
+   .sass('resources/assets/sass/app.scss', 'public/css/app.css')
+    .sass('resources/assets/sass/glide-core.scss','public/css/glide-core.css')
+    .sass('resources/assets/sass/glide-theme.scss','public/css/glide-theme.css');

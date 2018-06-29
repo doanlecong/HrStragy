@@ -2,6 +2,15 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AboutUsAdvertMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CandidateAndGuestManagerMiddleware;
+use App\Http\Middleware\CheckSessionAjax;
+use App\Http\Middleware\ClearanceMiddleware;
+use App\Http\Middleware\ContactUsMailSubManagerMiddleware;
+use App\Http\Middleware\CooperateCompanyInfoMiddleware;
+use App\Http\Middleware\JobAndRelateManagerMiddleware;
+use App\Http\Middleware\StoryAndServiceManagerMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -31,7 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+//             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -59,5 +68,16 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'isAdmin' => AdminMiddleware::class,
+        'clearance' => ClearanceMiddleware::class,
+        'contact_advert' => AboutUsAdvertMiddleware::class,
+        'check_session' => CheckSessionAjax::class,
+        'isCandidateGuestManager' => CandidateAndGuestManagerMiddleware::class,
+        'isContactUsMailSubManager' => ContactUsMailSubManagerMiddleware::class,
+        'isCoopCompanyInfoManager' => CooperateCompanyInfoMiddleware::class,
+        'isJobAndRelateManager' => JobAndRelateManagerMiddleware::class,
+        'isStoryServiceManager' => StoryAndServiceManagerMiddleware::class
     ];
 }

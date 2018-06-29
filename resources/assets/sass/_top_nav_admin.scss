@@ -1,0 +1,19 @@
+.container-fluid {
+  .main-content {
+    margin-left: 200px;
+    .top-nav-admin {
+      .navbar-toggler {
+        color: white;
+      }
+      .top-collapse {
+        .navbar-nav {
+          .nav-item {
+            .nav-link {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
