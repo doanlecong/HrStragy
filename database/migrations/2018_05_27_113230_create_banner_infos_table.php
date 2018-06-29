@@ -15,6 +15,10 @@ class CreateBannerInfosTable extends Migration
     {
         Schema::create('banner_infos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('image_path');
+            $table->string('title');
+            $table->string('link');
+            $table->string('status',1)->default('Y');
             $table->timestamps();
         });
     }

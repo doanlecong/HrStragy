@@ -80,10 +80,14 @@ class PermissionTableSeeder extends Seeder
             'advertise-create',
             'advertise-edit',
             'advertise-delete',
-            'service-list',
-            'service-create',
-            'service-edit',
-            'service-delete',
+            'ourservice-list',
+            'ourservice-create',
+            'ourservice-edit',
+            'ourservice-delete',
+            'clientservice-list',
+            'clientservice-create',
+            'clientservice-edit',
+            'clientservice-delete',
 
         ];
 

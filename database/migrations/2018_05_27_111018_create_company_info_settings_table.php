@@ -15,6 +15,16 @@ class CreateCompanyInfoSettingsTable extends Migration
     {
         Schema::create('company_info_settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('address');
+            $table->string('mobile_phone')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('slogan');
+            $table->string('email');
+            $table->longText('content');
+            $table->string('owner_info');
+            $table->dateTime('ngay_thanh_lap');
+
             $table->timestamps();
         });
     }

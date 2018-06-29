@@ -15,6 +15,12 @@ class CreateCareerInfosTable extends Migration
     {
         Schema::create('career_infos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('address');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('image');
+
             $table->timestamps();
         });
     }

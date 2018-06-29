@@ -15,6 +15,11 @@ class CreateCooperateInfosTable extends Migration
     {
         Schema::create('cooperate_infos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('image_small');
+            $table->string('image_big');
+            $table->string('title');
+            $table->longText('content');
+            $table->string('status',1)->default('Y');
             $table->timestamps();
         });
     }

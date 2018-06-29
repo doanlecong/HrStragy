@@ -10,10 +10,10 @@
         <div class="image-bachground"
              style="background-image: url('{{ asset('images/service_background.jpg') }}');
                      background-repeat: no-repeat;
-                     background-position: center center;
-                     background-color: #5dcc60;
-                     background-blend-mode: hard-light;
-                     filter: blur(3px);
+                     background-position: center;
+                     background-color: #04C49A;
+                     background-blend-mode: luminosity;
+                     filter: blur(1px);
                      position: absolute;
                      top: 0;
                      left: 0;
@@ -23,99 +23,55 @@
         </div>
         <div class="present-text position-relative"  data-aos="fade-up" style="padding-top: 100px; padding-bottom: 100px;">
             <h1 class="text-center font-playfair white-text text-shadown-black text-uppercase" style="font-size: 60px; font-weight: 900">
-                <span class="out-line-green-big">Our Services</span>
+                <span class="out-line-green-big" >Our Services</span>
             </h1>
         </div>
     </div>
-    <div class="container mt-2 padding-around position-relative">
-       <section class="border-top-green" style="width: 100%"  data-aos="fade-up">
-           <div class="header text-50 green-text text-center font-playfair">Recruitment Service</div>
-           <div class="d-flex justify-content-center align-items-center">
-               <img src="//unsplash.it/300/300" class="border-around-green box-shadown-light-dark">
-           </div>
-           <hr>
-           <h3 class="font-playfair"><a class="animate-bottom-nocontent green-text" href="{{ route('view_service') }}">ESS Service</a></h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
+    <div class="container mt-2 padding-around position-relative border-around-dash-green-m">
+        <div class="text-center padding-around " data-aos="fade-up">
+            <h1 class="green-text font-playfair text-shadown-orange-thin">We Are Proud To Providing To You</h1>
+        </div>
+        <div class="row no-padding-left-right" data-aos="fade-up">
+            @foreach($ourservices as $service)
+                <div class="col-sm-4">
+                    <div class="card w-100 shadow-lg mb-3 card-rotate box-shadown-light-dark" style="overflow: hidden; min-height: 430px; max-height: 430px;">
+                        <div class="front">
+                            <img class="image-full-width scale-onetwo" style="object-fit: cover; max-height: 200px;" src="{{ $service->image }}" alt="Card image">
+                            <div class="card-body position-absolute" style="bottom: 30px">
+                                <h4 class="card-title text-center">{{ $service->title }}</h4>
+                                <p class="card-text text-justify">{{ mb_substr(strip_tags($service->description),0, 100)}}{{ strlen(strip_tags($service->description)) > 100 ? "..." : "" }}</p>
+                            </div>
+                        </div>
+                        <div class="back border-around-dash-green-m">
+                            <div class="card-body ">
+                                <h5 class="text-center font-playfair text-20">
+                                    More Detail
+                                </h5>
+                                <p class="text-justify text-18 font-weight-bold">
+                                    {{ strip_tags($service->description) }}
+                                </p>
+                                <div class="text-center">
+                                    <a href="{{ route('view_service','service='.encrypt($service->id)) }}" class="btn btn-green btn-round white-text box-shadown-light-dark">View Detail</a>
+                                </div>
 
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
+                            </div>
 
-           <hr>
-           <h3 class="font-playfair"><a class="animate-bottom-nocontent green-text" href="{{ route('view_service') }}">Mass Recruitment</a></h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
+                        </div>
 
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
-
-           <hr>
-           <h3 class="font-playfair">Find Your Job</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
-       </section>
-       <section class="border-top-green mt-5 position-relative" style="width: 100%" data-aos="fade-left">
-           <div class="header text-center text-50 green-text font-playfair">Training Services</div>
-           <div class="d-flex justify-content-center align-items-center">
-               <img src="//unsplash.it/300/300" class="border-around-green box-shadown-light-dark">
-           </div>
-           <hr>
-           <h3 class="font-playfair">About Training Service</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
-
-           <hr>
-           <h3 class="font-playfair">In House Training</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
-
-           <hr>
-           <h3 class="font-playfair">Promotion In House</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.</p>
-       </section>
-       <section class="border-top-green mt-5" style="width: 100%;" data-aos="fade-right">
-           <div class="header text-50 green-text text-center font-playfair">Oursourcing and Staffing Services</div>
-           <div class="d-flex justify-content-center align-items-center">
-               <img src="//unsplash.it/300/300" class="border-around-green box-shadown-light-dark">
-           </div>
-           <hr>
-           <h3 class="font-playfair">Oursourcing and Staffing</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.
-           </p>
-       </section>
-       <section class="border-top-green mt-5" style="width: 100%;" data-aos="flip-right">
-           <div class="header text-50 text-center green-text font-playfair">Human Capital Consultancy Service</div>
-           <div class="d-flex justify-content-center align-items-center">
-               <img src="//unsplash.it/300/300" class="border-around-green box-shadown-light-dark" >
-           </div>
-           <hr>
-           <h3 class="font-playfair">Human Capital Consultancy</h3>
-           <p>Dịch Vụ Cung Cấp Nhân Sự Cấp Cao - Dịch Vụ Tuyển Dụng Trọn Gói</p>
-           <p>Chào mừng Anh Chị đến với Dịch vụ Tuyển Chọn Nhân Sự Cấp Cao của HR Strategy
-
-               Chúng tôi chuyên cung cấp dịch vụ tuyển dụng trọn gói: đăng tuyển dụng, tìm kiếm, sàng lọc, phỏng vấn, hẹn lịch phỏng vấn ứng viên chọn, theo dõi các ứng viên cho đến khi kết thúc thời gian thử việc.
-           </p>
-       </section>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection
 @section('addScript')
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            offset: 400,
-            duration: 1000,
+            offset: 100,
+            duration: 500,
             easing: 'ease-in-sine',
-            delay: 300,
+            delay: 200,
         });
     </script>
 @endsection

@@ -15,6 +15,12 @@ class CreateCustomerStoriesTable extends Migration
     {
         Schema::create('customer_stories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('image_thumb');
+            $table->string('title');
+            $table->mediumText('description');
+            $table->longText('content');
+            $table->string('writer');
+            $table->string('status',1)->default('Y');
             $table->timestamps();
         });
     }

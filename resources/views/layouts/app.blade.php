@@ -20,7 +20,7 @@
     </title>
     @yield('scriptTop')
     <!-- Styles -->
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="fb-root"></div>
@@ -34,36 +34,24 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
-<nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-top">
-    <div class="container text-center">
-        <div class="collapse navbar-collapse" id="navbarSupportedContentHidden">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                <li><a class="nav-link" href="{{ route('homepage') }}">HOME</a></li>
-                <li><a class="nav-link" href="{{ route('aboutus') }}">ABOUT US</a></li>
-                <li><a class="nav-link" href="{{ route('jobsearch') }}">JOB SEARCH</a></li>
-                <li><a class="nav-link" href="{{ route('ourservice') }}">OUR SERVICES</a></li>
-                <li><a class="nav-link" href="{{ route('clientservice') }}">CLIENT SERVICES</a></li>
-                <li><a class="nav-link" href="{{ route('ourcooperate') }}">OUR COOPERATE</a></li>
-                <li><a class="nav-link" href="{{ route('contact') }}">CONTACT US</a></li>
+
+@if(auth()->check())
+    <nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top border-top-green-m  bg-info">
+        <div class="container">
+            <ul class="navbar-nav ml-auto ul-list">
+                <li class="nav-item">
+                    <a class="nav-link white-text btn btn-green" href="{{ route('home') }}">Admin"s Page</a>
+                </li>
             </ul>
-
-            @if(Auth::check())
-                <ul class="navbar-nav ml-auto">
-                    <a class="nav-link ml-auto btn btn-outline-primary" href="{{ route('admin') }}">Admin Page</a>
-                    <a class="nav-link ml-auto btn btn-outline-primary" href="{{ route('logout') }}">Logout</a>
-                </ul>
-                @else
-                <a class="nav-link ml-auto" href="/login">Login</a>
-            @endif
-
         </div>
-    </div>
-</nav>
+    </nav>
+@endif
+
 <nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top border-top-green-m" id="navbar-under-top">
+
     <div class="container no-padding-left-right">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img class="img-fluid logo-full-size" src="{{ asset('images/logos.png')}}">
+            <img class="img-fluid logo-full-size" src="{{ asset('images/Logo.png')}}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars" aria-hidden="true"></i>
@@ -101,6 +89,9 @@
                 case "client-service":
                     $isClientService = true;
                     break;
+                case "customer-story":
+                    $isClientService = true;
+                    break;
                 case "our-cooperate":
                     $isCooperate = true;
                     break;
@@ -111,45 +102,82 @@
             ?>
             <ul class="navbar-nav ml-auto ul-list">
                 <li class="nav-item "><a class="nav-link {{ $isHome ? "selected" : ""}} " href="{{ route('homepage') }}">HOME</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link {{ $isAbout ? "selected" : ""}} dropdown-toggle" href="{{ route('aboutus') }} " id="aboutUsDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ABOUT US</a>
-                    <div class="dropdown-menu" aria-labelledby="aboutUsDropdownMenu">
-                        <a class="dropdown-item" href="{{ route('aboutus') }}" >Abour Us</a>
-                        <a class="dropdown-item" href="#" >Our Staffs</a>
-                        <a class="dropdown-item" href="#" >Company Profile</a>
-                        <a class="dropdown-item" href="#" >Internal Recruitment Noted</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link {{ $isAbout ? "selected" : ""}}" href="{{ route('aboutus') }} ">ABOUT US</a>
                 </li>
                 <li class="nav-item "><a class="nav-link {{ $isJobSearch ? "selected" : ""}}" href="{{ route('jobsearch') }}" >JOB SEARCH</a></li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link {{ $isOurService ? "selected" : ""}} dropdown-toggle" href="{{ route('ourservice') }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">OUR SERVICES</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('ourservice') }}">Our Services</a>
-                        <a class="dropdown-item" href="#" >Human Training</a>
-                        <a class="dropdown-item" href="#" >Outsourcing & Staffing</a>
-                        <a class="dropdown-item" href="#" >Student Training Services</a>
-                        <a class="dropdown-item" href="#" >High School Training Services</a>
-                    </div>
+                    <a class="nav-link {{ $isOurService ? "selected" : ""}} dropdown-toggle" href="{{ route('ourservice') }}">OUR SERVICES</a>
+                    @if(!empty($ourservices))
+                        <div class="dropdown-menu">
+                            @foreach($ourservices as $service)
+                                <a class="dropdown-item" href="{{ route('view_service','?service='.encrypt($service->id)) }}">{{ mb_substr($service->title, 0 ,30) }}{{ strlen($service->title) > 30 ? "...":"" }}</a>
+                            @endforeach
+                        </div>
+                    @endif
                 </li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link {{ $isClientService ? "selected" : ""}} dropdown-toggle" href="{{ route('clientservice') }}">Client Services</a>
+                    @if(!empty($clientServices))
+                        <div class="dropdown-menu">
+                            @foreach($clientServices as $service)
+                                <a class="dropdown-item" href="{{ route('view_type_client_service','service='.encrypt($service->id)) }}">{{ mb_substr($service->name, 0 ,30) }}{{ strlen($service->name) > 30 ? "...":"" }}</a>
+                            @endforeach
+                            <a class="dropdown-item" href="{{ route('customerStory') }}">Meaning Short Story</a>
+                        </div>
+                    @endif
+                </li >
                 {{--<li class="nav-item "><a class="nav-link {{ $isClientService ? "selected" : ""}}" href="{{ route('clientservice') }}" style="text-transform: uppercase">CLIENT SERVICES</a></li>--}}
                 <li class="nav-item "><a class="nav-link {{ $isCooperate ? "selected" : ""}}" href="{{ route('ourcooperate') }}" style="text-transform: uppercase">OUR COOPERATE</a></li>
-                <li class="nav-item "><a class="nav-link {{ $isContact ? "selected" : ""}}" href="{{ route('contact') }}" style="text-transform: uppercase">CONTACT US</a></li>
+                <li class="nav-item ">
+                    <a class="nav-link {{ $isContact ? "selected" : ""}}  dropdown-toggle" href="#" style="text-transform: uppercase" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CONTACT US</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('contactCandidate') }}">Contact For Candidate</a>
+                        <a class="dropdown-item" href="{{ route('contactGuest') }}" >Contact For Guest</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 @yield('superlink')
-<div class="container" id="breadcrumb">
+<div class="container-fluid" id="breadcrumb">
     @yield('breadcrumb')
 </div>
 <main class="py-4">
     @yield('content')
 </main>
-<div class="container-fluid background-tranparent border-top-green-m ">
-    @include('layouts.footer');
+<div class="container-fluid background-tranparent border-top-green-m no-padding-left-right">
+    @include('layouts.footer')
 </div>
 <!-- Scripts -->
-    <script src="{{ secure_asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        // Add smooth scrolling to all links
+        $("a").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+                // Prevent default anchor click behavior
+                event.preventDefault();
+
+                // Store hash
+                var hash = this.hash;
+
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 1000, function(){
+
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
+        });
+    });
+</script>
 @yield('addScript')
 </body>
 </html>
