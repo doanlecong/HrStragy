@@ -831,7 +831,17 @@
   -o-transition: background-color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out;
   &:hover {
-    background-color: $dark_green !important;
+    background-color: $cyan_green !important;
+  }
+}
+.hover-grey {
+  -webkit-transition: background-color 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: #e5e5e5 !important;
   }
 }
 

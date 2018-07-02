@@ -15,8 +15,8 @@
 @endsection
 @section('content')
     <div class="container-fluid parallax-window " >
-        <div class="parallax-window d-flex align-items-center justify-content-center " style="min-height: 500px;background-color: #0a0c0aa1" data-parallax="scroll" data-image-src="{{asset('images/Banner.jpg')}}">
-            <div class="row background-litle-white padding-around box-shadown-light-dark">
+        <div class="parallax-window d-flex align-items-center justify-content-center " style="min-height:93vh;background-color: #0a0c0aa1" data-parallax="scroll" data-image-src="{{asset('images/Banner.jpg')}}">
+            <div class="row background-litle-white padding-around box-shadown-light-dark hover-dark">
                 <div class="col-sm-5 background-light-green" style="border-right: 7px solid darkcyan">
                     <h1 class="font-playfair white-text text-center text-shadown-orange-thin" style="font-size: 4rem;">HR Stategy</h1>
                 </div>
@@ -29,15 +29,15 @@
         </div>
         <div class="row">
             <div class="col no-padding-left-right">
-                <div class="glide h-100">
-                    <div class="glide__track h-100" data-glide-el="track">
+                <div class="glide">
+                    <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides ">
                             @foreach($ourservices as $key => $service)
                                 <li class="glide__slide">
-                                    <div class="row" style="height: 600px">
+                                    <div class="row" style="height: 93vh;">
                                         @if($key % 2 == 0)
                                             <div class="col-sm-8 padding-around d-flex flex-row  align-items-end" style="background: url('{{ $service->image }}'); background-size: cover; background-position: center center;">
-                                                <div class="background-tranparent padding-around box-shadown-light-dark">
+                                                <div class="background-tranparent padding-around box-shadown-light-dark hover-dark">
                                                     <h1 class="font-roboto animated slideInUp" ><a
                                                                 href="{{ route('view_service','service='.encrypt($service->id)) }}" class="white-text text-shadown-black" style="text-decoration: none;">{{ $service->title }}</a></h1>
                                                     <p class="white-text font-roboto-light text-15">
@@ -45,9 +45,9 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 background-gradient-cyan-plum border-top-green pt-4 white-text">
+                                            <div class="col-sm-4 pt-4 white-text" style="background: url('{{ asset('images/Logo_1.png') }}'); background-size: cover;background-position: top; background-blend-mode: screen; background-color: #04c49a">
                                                 <div class="background-tranparent padding-around-20 ">
-                                                    <h5>{{ strip_tags($service->title)  }}</h5>
+                                                    <h4>{{ strip_tags($service->title)  }}</h4>
                                                     <p class="white-text font-roboto-light text-15">
                                                         {{ mb_substr(strip_tags($service->description), 0, 400) }} {{ strlen(strip_tags($service->description)) > 400 ? "...":"" }}
                                                     </p>
@@ -57,9 +57,9 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <div class="col-sm-4 background-gradient-cyan-plum border-top-green pt-4 white-text">
+                                            <div class="col-sm-4 pt-4 white-text" style="background: url('{{ asset('images/Logo_1.png') }}'); background-size: cover;background-position: top; background-blend-mode: hard-light; background-color: green">
                                                 <div class="background-tranparent padding-around-20">
-                                                    <h5>{{ strip_tags($service->title)  }}</h5>
+                                                    <h4>{{ strip_tags($service->title)  }}</h4>
                                                     <p class="white-text font-roboto-light text-15">
                                                         {{ mb_substr(strip_tags($service->description), 0, 400) }} {{ strlen(strip_tags($service->description)) > 400 ? "...":"" }}
                                                     </p>
@@ -68,8 +68,8 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8 padding-around d-flex flex-row  align-items-end" style="background: url('{{ $service->image }}'); background-size: cover; background-position: center center; ba">
-                                                <div class="background-tranparent padding-around box-shadown-light-dark">
+                                            <div class="col-sm-8 padding-around d-flex flex-row  align-items-end hover-dark" style="background: url('{{ $service->image }}'); background-size: cover; background-position: center center;">
+                                                <div class="background-tranparent padding-around box-shadown-light-dark hover-dark">
                                                     <h1 class="font-roboto  animated slideInUp " ><a
                                                                 href="{{ route('view_service','service='.encrypt($service->id)) }}" class="white-text text-shadown-black" style="text-decoration: none;">{{ $service->title }}</a></h1>
                                                     <p class="white-text font-roboto-light text-15">
@@ -116,7 +116,7 @@
                                                      class=" image-full-width" title="{{ $job->job_name }}">
                                             @endif
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 hover-grey">
                                             <h5 class="font-roboto font-weight-bold blue-text mt-3">
                                                 <a class=" animate-bottom-nocontent green-text"
                                                    href="{{ route('jobsearch.viewJob', $job->slug.".html") }}">{{ $job->job_name }}</a>
@@ -149,7 +149,8 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="text-right">
-                                    <a href="{{ route('jobsearch') }}" class="pl-3 pr-3 btn-round box-shadown-light-dark text-20 green-text btn background-litle-white">View More</a>
+                                    <a href="{{ route('jobsearch') }}" class="pl-3 pr-3 btn-round box-shadown-light-dark white-text text-20 btn hover-dark background-litle-white"
+                                    >View More</a>
                                 </h5>
                             </div>
                         </div>
@@ -171,7 +172,7 @@
                     <div class="w-75 pt-3 pb-3 " style="min-height: 400px;margin-left: 4rem;">
                         <h1 class="pt-5 pb-5 font-roboto-light text-uppercase white-text text-shadown-black">Candidates</h1>
                         <h5 class="pb-5 white-text" style="height: 120px;text-overflow: ellipsis;">Hr Strategy specializes in finding highly talented, top-performing professionals for industry-leading companies.</h5>
-                        <a href="{{ route('contactCandidate') }}" class="btn background-litle-white white-text btn-round btn-block text-20">Send Your Resume</a>
+                        <a href="{{ route('contactCandidate') }}" class="btn hover-dark background-litle-white white-text btn-round btn-block text-20">Send Your Resume</a>
                     </div>
                 </div>
                 <div class="col-sm-6" style="
@@ -183,7 +184,7 @@
                     <div class="w-75 pt-3 pb-3 " style="min-height: 400px; margin-left: 4rem;">
                         <h1 class="pt-5 pb-5 font-roboto-light text-uppercase white-text text-shadown-black">Employers</h1>
                         <h5 class="pb-5 white-text" style="height: 120px;text-overflow: ellipsis;">Total Talent Engagement is designed to work before, during and after the recruiting process to make talent acquisition more efficient, systematic and effective</h5>
-                        <a href="{{ route('contactGuest') }}" class="btn background-litle-white white-text btn-round btn-block text-20">Contact US</a>
+                        <a href="{{ route('contactGuest') }}" class="btn  hover-dark background-litle-white white-text btn-round btn-block text-20">Contact US</a>
                     </div>
 
                 </div>
@@ -191,8 +192,8 @@
 
         </div>
         <div class="parallax-window " data-parallax="scroll" style="padding-bottom: 5rem;" data-image-src="{{asset('images/background_1.png')}}">
-            <div>
-                <h1 class="text-center pt-5 pb-5 text-uppercase font-playfair text-shadown-black"><a class="white-text" style="text-decoration: none;"
+            <div >
+                <h1 class="text-center text-50 pt-5 pb-5 text-uppercase font-playfair text-shadown-black"><a class="white-text" style="text-decoration: none;"
                             href="{{ route('ourcooperate') }}">Our Cooperates</a></h1>
                     <div class="row mb-5">
                     <div class="col">
@@ -250,7 +251,7 @@
             type: 'carousel',
             startAt: 0,
             perView: 1,
-            autoplay : 5000,
+            autoplay : false,
             hoverpause: true,
             animationDuration: 1000,
             animationTimingFunc: "ease-in-out",
@@ -267,6 +268,12 @@
             animationDuration: 1000,
             animationTimingFunc: "ease-in-out",
             breakpoints : {
+                1920: {
+                    perView: 5,
+                },
+                1368 : {
+                    perView: 4,
+                },
                 1024: {
                     perView: 4,
                 },

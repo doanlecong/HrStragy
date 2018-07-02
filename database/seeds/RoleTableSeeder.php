@@ -15,13 +15,13 @@ class RoleTableSeeder extends Seeder
 
             'Job-Company-Category-Location-Manager',
 
-            'Story-Comment-Manager',
+            'Story-Service-Manager',
 
-            'Navbar-Manager',
+            'Candidates-Guest-Contact-Manager',
 
-            'Mail-CvCustomer-Alert-Manager',
+            'Contact-Mail-Subscriber-Manager',
 
-            'Contact-Advertise-Manager'
+            'Cooperate-Company-Info-Manager'
         ];
         foreach ($roles as $role){
             Role::create(['name' => $role]);

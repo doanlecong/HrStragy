@@ -14,7 +14,9 @@
 
 // Route public
 Route::get('/', 'PublicPageController@welcome')->name('homepage');
-
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
 Route::get('/not-found-404.html', 'PublicPageController@notFound')->name('notFound_404');
 
 Route::get('/about-us.html','PublicPageController@aboutUs')->name('aboutus');

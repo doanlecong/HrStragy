@@ -147,9 +147,11 @@
 <main class="py-4">
     @yield('content')
 </main>
-<div class="container-fluid background-tranparent border-top-green-m no-padding-left-right">
-    @include('layouts.footer')
-</div>
+@if(!empty($info))
+    <div class="container-fluid background-tranparent border-top-green-m no-padding-left-right">
+        @include('layouts.footer')
+    </div>
+@endif
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script>

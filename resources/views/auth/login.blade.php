@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container border-top-green  mt-3 shadow-lg">
+<div class="container border-top-green no-padding-top mt-3 no-padding-left-right no-padding-bottom shadow-lg" style="border-top-right-radius: 20px; border-top-left-radius: 20px">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card no-border-radius background-light-green ">
-                <div class="card-header background-green white-text text-18">{{ __('Login') }}</div>
+        <div class="col-md-12 no-padding-left-right">
+            <div class="card no-border-radius card-no-border background-light-green ">
+                <div class="card-header no-border-radius  background-green white-text text-18">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

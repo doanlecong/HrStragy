@@ -3,32 +3,35 @@
      style="background: url('/images/bg_footer.jpg'); background-position: center; background-size: cover; background-color: #039874; background-blend-mode: multiply;">
     <div class="container-fluid no-padding-left-right no-padding-bottom">
         <div class="row padding-bottom-40 padding-top-10 background-litle-tranparent padding-around">
-            <div class="col-sm-7 padding-top-10 font-playfair">
-                <h1 class="danhmuc white-text text-shadown-orange-thin" style="font-size: 40px">
-                    {{ $info->name }}</h1>
 
-                <p class="danhmuc white-text text-20 font-roboto-light">
-                    <i class="fa fa-map-o" style="width: 30px;" aria-hidden="true"></i> {{ $info->address }}
-                </p>
+            @if(!empty($info))
+                <div class="col-sm-7 padding-top-10 font-playfair">
+                    <h1 class="danhmuc white-text text-shadown-orange-thin" style="font-size: 40px">
+                        {{ $info->name }}</h1>
 
-                <p class="danhmuc white-text text-20 font-roboto-light">
-                    <i class="fa fa-mobile fa-2x" style="width: 30px;" aria-hidden="true"></i> {{ $info->mobile_phone }}
-                </p>
-                <p class="danhmuc white-text text-20 font-roboto-light">
-                    <i class="fa fa-phone" style="width: 30px;" aria-hidden="true"></i> {{ $info->phone }}
-                </p>
-                <p class="danhmuc white-text text-20 font-roboto-light">
-                    <i class="fa fa-envelope-o" style="width: 30px;" aria-hidden="true"></i> {{ $info->email }}
-                </p>
-                <p class="danhmuc white-text text-20 font-roboto-light">
-                    <i class="fa fa-globe" style="width: 30px;" aria-hidden="true"></i>  <a class="white-text animate-bottom-nocontent" href="{{ route('homepage') }}" target="_blank">www.hrstrategy.vn</a>
-                </p>
-                <p><?php if(!empty($info->facebook)) {?>  <a href="{{ $info->facebook }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-facebook fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
-                <?php if(!empty($info->linkedin)) {?>  <a href="{{ $info->linkedin }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark'  style="padding: 10px;"><i class="fa fa-linkedin fa-2x white-text" style="width: 30px;"></i></a> <?php }  ?>
-                <?php if(!empty($info->skype)) {?>  <a href="{{ $info->skype }}" class='btn white-text rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-skype  fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
-                <?php if(!empty($info->google)) {?>  <a href="{{ $info->google }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-google-plus fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
-                <?php if(!empty($info->twitter)) {?>  <a href="{{ $info->twitter }}" class='btn white-text rounded-circle pml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-twitter fa-2x white-text" style="width: 30px;"></i></a> <?php } ?></p>
-            </div>
+                    <p class="danhmuc white-text text-20 font-roboto-light">
+                        <i class="fa fa-map-o" style="width: 30px;" aria-hidden="true"></i> {{ $info->address }}
+                    </p>
+
+                    <p class="danhmuc white-text text-20 font-roboto-light">
+                        <i class="fa fa-mobile fa-2x" style="width: 30px;" aria-hidden="true"></i> {{ $info->mobile_phone }}
+                    </p>
+                    <p class="danhmuc white-text text-20 font-roboto-light">
+                        <i class="fa fa-phone" style="width: 30px;" aria-hidden="true"></i> {{ $info->phone }}
+                    </p>
+                    <p class="danhmuc white-text text-20 font-roboto-light">
+                        <i class="fa fa-envelope-o" style="width: 30px;" aria-hidden="true"></i> {{ $info->email }}
+                    </p>
+                    <p class="danhmuc white-text text-20 font-roboto-light">
+                        <i class="fa fa-globe" style="width: 30px;" aria-hidden="true"></i>  <a class="white-text animate-bottom-nocontent" href="{{ route('homepage') }}" target="_blank">www.hrstrategy.vn</a>
+                    </p>
+                    <p><?php if(!empty($info->facebook)) {?>  <a href="{{ $info->facebook }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-facebook fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
+                        <?php if(!empty($info->linkedin)) {?>  <a href="{{ $info->linkedin }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark'  style="padding: 10px;"><i class="fa fa-linkedin fa-2x white-text" style="width: 30px;"></i></a> <?php }  ?>
+                        <?php if(!empty($info->skype)) {?>  <a href="{{ $info->skype }}" class='btn white-text rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-skype  fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
+                        <?php if(!empty($info->google)) {?>  <a href="{{ $info->google }}" class='btn white-text  rounded-circle  ml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-google-plus fa-2x white-text" style="width: 30px;"></i></a> <?php } ?>
+                        <?php if(!empty($info->twitter)) {?>  <a href="{{ $info->twitter }}" class='btn white-text rounded-circle pml-2 btn-round bg-info box-shadown-light-dark' style="padding: 10px;"><i class="fa fa-twitter fa-2x white-text" style="width: 30px;"></i></a> <?php } ?></p>
+                </div>
+            @endif
             <div class="col-sm-5 padding-top-10">
                 <h1 class=" white-text text-shadown-orange-thin font-playfair" style="font-size: 40px">
                     Contact Us:
