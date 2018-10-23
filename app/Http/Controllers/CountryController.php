@@ -136,6 +136,16 @@ class CountryController extends Controller
     public function delete(Request $request, $id) {
         $country = Country::find($id);
         if($country !=null) {
+            if($country->provinces->count() > 0) {
+                foreach ($country->provinces as $provinces) {
+                    if($provinces->districts->count() > 0) {
+                        foreach ($provinces->districts as $district) {
+                            $district->delete();
+                        }
+                    }
+                    $provinces->delete();
+                }
+            }
             $country->delete();
             if($request->isXmlHttpRequest()) {
                 return response()->json([

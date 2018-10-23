@@ -50,7 +50,12 @@ class OurServiceController extends Controller
         ]);
 
         $ourService = new OurService();
-
+        $slug = str_slug($request->title, '-');
+        $canUseSlug = OurService::checkSlug($slug, null);
+        if(!$canUseSlug) {
+            $slug = $slug.rand(1000,9999);
+        }
+        $ourService->slug = $slug;
         $ourService->title = $request->title;
         $ourService->image = $request->image;
         $ourService->description = Purifier::clean($request->description);
@@ -107,7 +112,7 @@ class OurServiceController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required|max:200',
+            'title' => 'required|max:191',
             'image' => 'required',
             'contentInfo' => 'required',
             'description' => "required"
@@ -115,6 +120,14 @@ class OurServiceController extends Controller
 
         $ourService = OurService::find($id);
         if ($ourService != null) {
+            if($request->title != $ourService->title) {
+                $slug = str_slug($request->title, '-');
+                if(!OurService::checkSlug($slug, $ourService->id)) {
+                    $slug = $slug.rand(1000, 9999);
+                }
+                $ourService->slug = $slug;
+            }
+
             $ourService->title = $request->title;
             $ourService->image = $request->image;
             $ourService->description = Purifier::clean($request->description);

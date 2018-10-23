@@ -23,51 +23,54 @@
         >
         </div>
         <div class="present-text position-relative"  data-aos="fade-up" style="padding-top: 100px; padding-bottom: 100px;">
-            <h1 class="text-center font-playfair white-text text-shadown-black text-uppercase" style="font-size: 60px; font-weight: 900">
-                <span class="out-line-green-big" >Our Cooperates</span>
+            <h1 class="text-center font-playfair white-text text-shadown-orange-thin text-uppercase" style="font-size: 40px; font-weight: 900">
+                Our Cooperates
             </h1>
         </div>
     </div>
-    <div class="container mt-2 padding-around position-relative shadow-lg">
-        <div class="text-center padding-around mb-3 shadow-lg" data-aos="fade-up"
-            style="background-image: url('{{ asset('images/background_tranparent.png') }}');
-                    background-repeat: repeat;
-                    background-position: center;
-                    background-size: contain;
-                    background-color: #04C49A;
-                    background-blend-mode: hard-light;
-                    ">
-            <h1 class=" white-text text-shadown-orange-thin">Our Awesome Partners</h1>
-        </div>
-        <div class="row no-padding-left-right" data-aos="fade-up">
-            @foreach($ourCoops as $coop)
-                <div class="col-sm-4">
-                    <div class="card w-100 shadow-lg mb-3 card-rotate box-shadown-light-dark" style="overflow: hidden; min-height: 430px; max-height: 430px;">
-                        <div class="front">
-                            <img class="image-full-width scale-onetwo" style="object-fit: cover; max-height: 200px;" src="{{ $coop->image_small }}" alt="Card image">
-                            <div class="card-body position-absolute" style="bottom: 30px">
-                                <h4 class="card-title text-center">{{ $coop->title }}</h4>
-                                <p class="card-text text-justify">{{ mb_substr(strip_tags($coop->descript),0, 100)}}{{ strlen(strip_tags($coop->descript)) > 100 ? "..." : "" }}</p>
-                            </div>
-                        </div>
-                        <div class="back border-around-dash-green-m background-gradient-cyan-plum">
-                            <div class="card-body ">
-                                <h5 class="text-center font-playfair text-20 white-text">
-                                    More Detail
-                                </h5>
-                                <p class="text-justify text-18 font-weight-bold">
-                                    {{ mb_substr(strip_tags($coop->descript),0, 300)}}{{ strlen(strip_tags($coop->descript)) > 300 ? "..." : "" }}
-                                </p>
-                                <div class="text-center ">
-                                    <a href="{{ $coop->link }}" class="btn btn-green btn-round white-text box-shadown-light-dark ">Go to Partner's Page</a>
-                                    <button class="ml-1 btn btn-green btn-round white-text box-shadown-light-dark showPartner" data-id="{{ $coop->id }}">View Detail</button>
+    <div class="container padding-around position-relative shadow-lg" style="transform: translateY(-40px); border-top-left-radius: 20px; border-top-right-radius: 20px">
+        {{--<div class="text-center padding-around mb-3 shadow-lg" data-aos="fade-up"--}}
+            {{--style="background-image: url('{{ asset('images/background_tranparent.png') }}');--}}
+                    {{--background-repeat: repeat;--}}
+                    {{--background-position: center;--}}
+                    {{--background-size: contain;--}}
+                    {{--background-color: #04C49A;--}}
+                    {{--background-blend-mode: hard-light;--}}
+                    {{--">--}}
+            {{--<h1 class=" white-text text-shadown-orange-thin">Our Awesome Partners</h1>--}}
+        {{--</div>--}}
+            <div class="row no-padding-left-right" data-aos="fade-up">
+                @foreach($ourCoops as $coop)
+                    <div class="col-sm-3">
+                        <div class="card w-100  mb-3 box-shadown-light-dark" style="overflow: hidden; min-height: 400px; max-height: 400px;">
+                            {{--<div class="front">--}}
+                                <img class="image-full-width scale-onetwo" style="object-fit: cover; max-height: 150px;" src="{{ $coop->image_small }}" alt="Card image">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center text-hover-green">{{ $coop->title }}</h4>
+                                    <h5 class="green-text text-center font-weight-light">______________</h5>
+                                    <p class="card-text font-roboto-light text-justify " style="font-size: 12px">{{ mb_substr(strip_tags($coop->descript),0, 100)}}{{ strlen(strip_tags($coop->descript)) > 100 ? "..." : "" }}</p>
+                                    <div class="text-center">
+                                        <a href="{{ $coop->link }}" class="btn btn-green btn-round white-text box-shadown-light-dark mt-1 text-11">Go to Partner's Page</a>
+                                        <button class="ml-1 btn btn-green btn-round white-text box-shadown-light-dark showPartner mt-1 text-11" data-id="{{ $coop->id }}">View Detail</button>
+                                    </div>
                                 </div>
-                            </div>
+                            {{--</div>--}}
+                            {{--<div class="back border-around-dash-green-m background-gradient-cyan-plum">--}}
+                                {{--<div class="card-body ">--}}
+                                    {{--<h5 class="text-center font-playfair text-20 white-text">--}}
+                                        {{--More Detail--}}
+                                    {{--</h5>--}}
+                                    {{--<p class="text-justify text-15 font-roboto-light white-text">--}}
+                                        {{--{{ mb_substr(strip_tags($coop->descript),0, 300)}}{{ strlen(strip_tags($coop->descript)) > 300 ? "..." : "" }}--}}
+                                    {{--</p>--}}
+                                   {{----}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+
     </div>
     <div class="modal fade" id="modalShowPostList" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -48,6 +48,10 @@
                                         </div>
                                         <img id="holder" style="margin-top:15px;max-height:100px;" src="{{ $service->image }}">
                                         <hr>
+                                        <div class="form-group">
+                                            <label for="title">Description : </label>
+                                            <textarea type="text" class="form-control" name="description" rows="4">{{ strip_tags($service->description) }}</textarea>
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-12">

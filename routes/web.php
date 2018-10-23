@@ -19,7 +19,11 @@ Route::get('/home', function () {
 });
 Route::get('/not-found-404.html', 'PublicPageController@notFound')->name('notFound_404');
 
-Route::get('/about-us.html','PublicPageController@aboutUs')->name('aboutus');
+Route::get('/about/about-us.html','PublicPageController@aboutUs')->name('aboutus');
+Route::get('/about/company-profile.html','PublicPageController@companyProfile')->name('companyProfile');
+Route::get('/about/our-staffs.html','PublicPageController@ourStaff')->name('ourStaff');
+Route::get('/about/internal-recruitment.html','PublicPageController@internalRecruitment')->name('internalRecruitment');
+
 
 Route::get('/job-search.html', 'PublicPageController@jobSearch')->name('jobsearch');
 
@@ -27,15 +31,15 @@ Route::get('/job-search/view-job/{slug}', 'PublicPageController@viewJobSearch')-
 
 Route::get('/our-service.html','PublicPageController@ourService')->name('ourservice');
 
-Route::get('/our-service/view-service.html','PublicPageController@viewService')->name('view_service');
+Route::get('/our-service/view-service/{slug}','PublicPageController@viewService')->name('view_service');
 
 Route::get('/client-service.html', 'PublicPageController@clientService')->name('clientservice');
 
-Route::get('/client-service/view-type-client-service.html','PublicPageController@viewTypeClientService')->name('view_type_client_service');
+Route::get('/client-service/type-client-service/{slug}','PublicPageController@viewTypeClientService')->name('view_type_client_service');
 
-Route::get('/client-service/view-client-service.html', 'PublicPageController@viewClientService')->name('view_client_service');
+Route::get('/client-service/view-client-service/{slug}', 'PublicPageController@viewClientService')->name('view_client_service');
 Route::get('/customer-story.html','PublicPageController@customerStory')->name('customerStory');
-Route::get('/customer-story/view-story.html','PublicPageController@viewCustomerStory')->name('viewCustomerStory');
+Route::get('/customer-story/view-story/{slug}','PublicPageController@viewCustomerStory')->name('viewCustomerStory');
 
 
 Route::get('/our-cooperate.html', 'PublicPageController@ourCooperate')->name('ourcooperate');
@@ -80,6 +84,17 @@ Route::middleware(['check_session','auth'])->prefix('authenticated')->group(func
     Route::get('company_info/edit_aboutus','AboutUsController@edit')->name('editAboutUs');
     Route::post('company_info/update_aboutus','AboutUsController@updateInfo')->name('updateAboutUs');
 
+    Route::get('our_staff/view','OurStaffController@index')->name('viewOurStaff');
+    Route::get('our_staff/edit_our_staff','OurStaffController@edit')->name('editOurStaff');
+    Route::post('our_staff/update_our_staff','OurStaffController@updateInfo')->name('updateOurStaff');
+
+    Route::get('company_profile/view','CompanyProfileInfoController@index')->name('viewCompanyProfile');
+    Route::get('company_profile/edit_company_profile','CompanyProfileInfoController@edit')->name('editCompanyProfile');
+    Route::post('company_profile/update_company_profile','CompanyProfileInfoController@updateInfo')->name('updateCompanyProfile');
+
+    Route::get('internal_recruitment/view','InternalRecruitmentInfoController@index')->name('viewInternaRecruit');
+    Route::get('internal_recruitment/edit_info','InternalRecruitmentInfoController@edit')->name('editInternalRecruit');
+    Route::post('internal_recruitment/update_info','InternalRecruitmentInfoController@updateInfo')->name('updateInternalRecruit');
 
     Route::resource('our_service','OurServiceController');
     Route::get('our_service/{id}/view_instant','OurServiceController@viewInstant')->name('our_service.viewInstant');
@@ -115,6 +130,8 @@ Route::middleware(['check_session','auth'])->prefix('authenticated')->group(func
     Route::get('job/{id}/view','JobManagerController@viewInstant')->name('job.viewInstant');
     Route::get('job/{id}/toggle-show','JobManagerController@toggleShow')->name('job.toggleShow');
     Route::get('job/{id}/delete','JobManagerController@delete')->name('job.delete');
+    Route::get('job/{id}/view-candidate-list','JobManagerController@viewCandidateList')->name('job.viewCandidateList');
+    Route::get('job/{id}/{cd_id}/view-candidate-detail','JobManagerController@viewCandidateDetail')->name('job.viewCandidateDetail');
     Route::post('job_check/check-slug','JobManagerController@checkSlug')->name('job.checkSlug');
     Route::post('job_check/check-name', 'JobManagerController@checkName')->name('job.checkName');
 
@@ -175,6 +192,8 @@ Route::middleware(['check_session','auth'])->prefix('authenticated')->group(func
     Route::get('candidates/{id}/view', 'CandidateController@viewInstant')->name('candidate.viewInstant');
     Route::get('candidates/{id}/delete','CandidateController@delete')->name('candidate.delete');
     Route::get('candidates_search/search','CandidateController@searchContact')->name('candidate.search');
+    Route::get('candidates/view-image/{imageName}','CandidateController@viewImage')->name('candidate.viewImage');
+    Route::get('candidates/download-file/{fileName}','CandidateController@downloadFile')->name('candidate.downloadFile');
 
     Route::resource('guest_contact', 'GuestController');
     Route::get('guest_contact/{id}/toggle-read', 'GuestController@toggleRead')->name('guest_contact.toggleRead');

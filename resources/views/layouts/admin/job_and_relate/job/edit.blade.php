@@ -94,6 +94,21 @@
                                             <input type="text" class="input-sm form-control" id="to" name="time_to" placeholder="Active To" value="{{ date('m/d/Y', strtotime($job->time_to)) }}"/>
                                         </div>
                                         <hr>
+                                        <div class="row">
+                                            <div class="col-6 form-group no-padding-left">
+                                                <label for="title">Age (<small>Range or Single Value</small>): </label>
+                                                <input type="text" name="age" placeholder="20 - 30" class="form-control" value="{{ $job->age }}">
+                                            </div>
+                                            <div class="col-6 form-group no-padding-right">
+                                                <label for="title">Sex : </label>
+                                                <select name="sex" id="sex" class="form-control" value="{{ $job->sex == "" ? "" : $job->sex }}">
+                                                    <option value=""  {{ $job->sex == "" ? "selected": ""}}></option>
+                                                    <option value="1" {{ $job->sex == "1" ? "selected": ""}}>{{ config('global.sex_1') }}</option>
+                                                    <option value="2" {{ $job->sex == "2" ? "selected": ""}}>{{ config('global.sex_2') }}</option>
+                                                    <option value="3" {{ $job->sex == "3" ? "selected": ""}}>{{ config('global.sex_3') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -137,13 +152,15 @@
                                             <label for="title">Province : </label>
                                             <select type="text" class="form-control" id="province_id" name="province_id">
                                                 <option value="">Please Choose</option>
-                                                @foreach($provinces as $province)
-                                                    @if($province->id == $job->province_id)
-                                                        <option value="{{ $province->id }}" selected>{{ $province->name }}</option>
-                                                    @else
-                                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                                    @endif
-                                                @endforeach
+                                                @if($provinces)
+                                                    @foreach($provinces as $province)
+                                                        @if($province->id == $job->province_id)
+                                                            <option value="{{ $province->id }}" selected>{{ $province->name }}</option>
+                                                        @else
+                                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
 
                                             </select>
                                             <div class="shade-green"></div>
@@ -152,13 +169,15 @@
                                             <label for="title">District : </label>
                                             <select type="text" class="form-control" id="district_id" name="district_id">
                                                 <option value="">This list will be here when chosen province</option>
-                                                @foreach($districts as $district)
-                                                    @if($district->id == $job->district_id)
-                                                        <option value="{{ $district->id }}" selected>{{ $district->name }}</option>
-                                                    @else
-                                                        <option value="{{ $district->id }}">{{ $district->name }}</option>
-                                                    @endif
-                                                @endforeach
+                                                @if($districts)
+                                                    @foreach($districts as $district)
+                                                        @if($district->id == $job->district_id)
+                                                            <option value="{{ $district->id }}" selected>{{ $district->name }}</option>
+                                                        @else
+                                                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="form-group">

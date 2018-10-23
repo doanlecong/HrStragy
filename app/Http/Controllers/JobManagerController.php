@@ -143,6 +143,24 @@ class JobManagerController extends Controller
     {
         //
     }
+
+    public function viewCandidateList($id) {
+        $job = Job::find($id);
+        if($job) {
+            $candidates = $job->candidates()->paginate(10);
+            return response(
+                view('layouts.admin.candidate_contact.table', ['count' => count($candidates),'candidates' => $candidates]),
+                200,
+                ['Content-Type', 'application/json']
+            );
+        }
+        return response(
+            '404 .Not Found !',
+            404,
+            ['Content-Type', 'application/json']
+        );
+    }
+
     public function toggleShow($id) {
         $job = Job::find($id);
         if($job != null) {
@@ -262,7 +280,7 @@ class JobManagerController extends Controller
 
     public function delete(Request $request, $id) {
         $job = Job::find($id);
-        if($job !=null) {
+        if($job != null) {
             $job->jobCates()->sync(array());
             $job->jobLevels()->sync(array());
             $job->delete();

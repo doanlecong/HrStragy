@@ -62,7 +62,10 @@
                                         <th>Company</th>
                                         <th>Salary</th>
                                         <th>Valid In (From - To)</th>
-                                        <th>Description</th>
+                                        <th>Applied Number</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                        {{--<th>Description</th>--}}
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Operations</th>
@@ -73,7 +76,7 @@
                                     @foreach ($jobs as $t)
                                         <tr id="row{{$t->id}}">
                                             <td>{{$t->id}}</td>
-                                            <td title="{{ strip_tags($t->job_name)}}">{{ strip_tags(mb_substr($t->job_name,0, 100))}}</td>
+                                            <td title="{{ ucfirst(strip_tags($t->job_name))}}">{{ ucfirst(strip_tags(mb_substr($t->job_name,0, 100)))}}</td>
                                             <td>
                                                 @if($t->image != null && $t->image!= 'NULL')
                                                     <div>
@@ -106,10 +109,13 @@
                                                          style="width: 50px; height: 50px;">
                                                 @endif
                                             </td>
-                                            <td>{{ strip_tags(mb_substr($t->company->name,0, 100)) }}</td>
+                                            <td>{{ strip_tags(mb_substr($t->company!= null  ? $t->company->name : "",0, 100)) }}</td>
                                             <td>{{ strip_tags(mb_substr($t->salary, 0, 30)) }}</td>
                                             <td>{{ $t->time_from }} -- {{ $t->time_to }}</td>
-                                            <td title="{{ strip_tags($t->description) }}">{{ strip_tags(mb_substr($t->description, 0, 50)) }}</td>
+                                            <td>{{ $t->number_apply }} <button class="btn background-green white-text box-shadown-light-dark view-relate-content" data-href="{{ route('job.viewCandidateList', $t->id) }}"><i class="fa fa-bars" aria-hidden="true"></i></button></td>
+                                            <td>{{ !empty($t->age) ? $t->age : "Not Set" }}</td>
+                                            <td>{{ !empty($t->sex) ? config('global.sex_'.($t->sex == ""  ? 0 : $t->sex)) : "Not Set" }}</td>
+                                            {{--<td title="{{ strip_tags($t->description) }}">{{ strip_tags(mb_substr($t->description, 0, 50)) }}</td>--}}
                                             <td id="tdrow{{ $t->id }}">
                                                 @if($t->status == config('global.statusActive'))
                                                     <span style="cursor: pointer;" title="Click to show or hide this in customer's page" data-id="{{ $t->id }}" data-href="{{ route('job.toggleShow', $t->id) }}" class="badge background-green white-text toogle-show box-shadown-light-dark">{{ config('global.'.$t->status) }}</span>
@@ -154,7 +160,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px;">
             <div class="modal-content no-border-radius">
                 <div class="modal-header card_header_gradient">
-                    <h5 class="modal-title" id="exampleModalLongTitle">View Cooperate</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">View Job</h5>
                 </div>
                 <div class="modal-body" id="contentForPostList">
                     <div class="wrapper-for-loading padding-top-30 padding-bottom-10">

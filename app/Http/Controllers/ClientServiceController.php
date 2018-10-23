@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\ClientService;
 use App\TypeClientService;
 use Illuminate\Http\Request;
-
+use Purifier;
 class ClientServiceController extends Controller
 {
     public function __construct()
@@ -46,13 +46,21 @@ class ClientServiceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title'=>'required|max:100',
+            'title'=>'required|max:191',
             'type_service' => 'required',
             'image' => 'required',
+            'description' => 'required',
             'contentInfo' =>'required',
         ]);
         $clientService = new ClientService();
+        $slug = str_slug($request->title, '-');
+        $canUseSlug = ClientService::checkSlug($slug, null);
+        if(!$canUseSlug) {
+            $slug = $slug.rand(1000,9999);
+        }
         $clientService->title = $request->title;
+        $clientService->slug = $slug;
+        $clientService->description = Purifier::clean($request->description);
         $clientService->type_client_service_id = $request->type_service;
         $clientService->image = $request->image;
         $clientService->content = $request->contentInfo;
@@ -109,15 +117,25 @@ class ClientServiceController extends Controller
     {
 
         $this->validate($request, [
-            'title'=>'required|max:100',
+            'title'=>'required|max:191',
             'type_service' => 'required',
             'image' => 'required',
+            'description' => 'required',
             'contentInfo' =>'required',
         ]);
         $clientService = ClientService::find($id);
         if ($clientService != null) {
+            if($request->title != $clientService->title) {
+                $slug = str_slug($request->title, '-');
+                if(!ClientService::checkSlug($slug, $clientService->id)) {
+                    $slug = $slug.rand(1000, 9999);
+                }
+                $clientService->slug = $slug;
+            }
+
             $clientService->title = $request->title;
             $clientService->image = $request->image;
+            $clientService->description = Purifier::clean($request->description);
             $clientService->type_client_service_id = $request->type_service;
             $clientService->content = $request->contentInfo;
             $clientService->save();

@@ -72,19 +72,29 @@
   box-shadow: 1px 1px 10px 0px rgba(128, 128, 128, 0.55);
 }
 // Customize Css for Select2 Input
-.select2-container {
-  border-bottom: 5px solid $cyan_green;
-}
+
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: 1px solid $cyan_green;
-  border-radius: 0px !important;
+  border: 1px solid $cyan_green !important;
+  border-radius: $borderRadius !important;
 }
 .select2-container--default .select2-selection--multiple {
   border: 1px solid $cyan_green !important;
-  border-radius: 0px !important;
+  border-radius: $borderRadius !important;
 }
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: 1px solid $cyan_green !important;
+.select2-container--default .select2-search--inline .select2-search__field {
+  padding-left: 5px;
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $cyan_green;
+    opacity: 1; /* Firefox */
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $cyan_green;
+  }
+
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: $cyan_green;
+  }
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: $quite-green !important;
@@ -101,7 +111,7 @@
   background-color: #c2f3ca !important;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #16745f !important;
+  background-color: $cyan_green !important;
 }
 .select2-container--open .select2-dropdown--below {
   box-shadow: 1px 1px 20px 9px rgba(77, 77, 77, 0.21);
@@ -111,8 +121,8 @@
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: rgb(4, 196, 154) !important;
-  border: 1px solid #04C49A !important;
+  background-color: $cyan_green !important;
+  border: 1px solid $cyan_green !important;
   color: white;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
@@ -193,7 +203,7 @@
           -o-transition: all 0.2s;
           transition: all 0.2s;
           a {
-            color: $light_green;
+            color: $dark_green;
             font-size: 15px;
             font-weight: normal;
             box-shadow: 0px 0px 0px 0px white;
@@ -203,12 +213,13 @@
           }
           &:hover {
             background: $light_green;
-            transform: translate(-5px, -3px);
+            border-radius: 20px;
+            //transform: translate(-5px, -3px);
             & > a {
               color: white;
               font-weight: normal;
               font-family: inherit, 'sans-serif';
-              box-shadow: 4px 7px 0px 0px $cyan_green;
+              //box-shadow: 4px 7px 0px 0px $cyan_green;
             }
             & .dropdown-menu {
               display: block;
@@ -217,7 +228,8 @@
           }
           .dropdown-menu {
             box-shadow: 1px 3px 0px 0px $light_green;
-            border-radius: 0px !important;
+            border-radius: 8px !important;
+            overflow: hidden;
             opacity: 0;
             -webkit-transition: opacity 0.2ms linear 0.1ms;
             -moz-transition: opacity 0.2ms linear 0.1ms;
@@ -658,6 +670,41 @@
 .yellow-text {
   color: #ffe229 !important;
 }
+.text-placeholder-white{
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+  }
+
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+  }
+}
+
+.text-placeholder-green{
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $cyan_green;
+    opacity: 1; /* Firefox */
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $cyan_green;
+  }
+
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: $cyan_green;
+  }
+}
+
+.hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 .text-50 {
   font-size: 50px;
@@ -669,9 +716,18 @@
 .text-18 {
   font-size: 18px;
 }
+.text-183 {
+  text-align: right;
+  font-size: 18px
+}
+
 .text-15 {
   font-size: 15px !important;
 }
+.text-11{
+  font-size: 11px;
+}
+
 .card-no-border {
   border: 0px;
 }
@@ -728,11 +784,6 @@
 .form-group {
   margin-bottom: 0.7rem;
 }
-.form-control {
-  font-size: 0.8rem;
-  border-radius: 0px !important;
-  border-bottom: 5px solid #e1e1e1;
-}
 
 .box-shadown-darkblue {
   &:hover {
@@ -763,6 +814,7 @@
   transition: all 100ms;
 }
 .box-shadown-light-dark {
+  box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.18);
   &:hover {
     transform: translate(0px, -3px);
     box-shadow: 3px 6px 9px 0px rgba(28, 28, 28, 0.3);
@@ -812,7 +864,6 @@
   -moz-border-radius: 0px !important;
   border-radius: 0px !important;
 }
-
 .haft-left {
   display: inline;
   float: left;
@@ -842,6 +893,16 @@
   transition: background-color 0.2s ease-in-out;
   &:hover {
     background-color: #e5e5e5 !important;
+  }
+}
+.text-hover-green {
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  -ms-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+  &:hover {
+    color: $cyan_green;
   }
 }
 
@@ -1254,7 +1315,7 @@
 
 // het cac class dung chung
 body {
-  background-color: #ebeef2;
+  background-color: white;
   & > .container {
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -1267,6 +1328,8 @@ body {
 }
 .form-control {
   border-color: $light_green;
+  font-size: 0.8rem;
+  border-radius: 0px !important;
   &:focus {
     color: $dark_green;
     background-color: #fff;
@@ -1355,6 +1418,7 @@ div.card {
 }
 
 .py-4 {
+  padding-bottom: 0px !important;
   margin-top: 0px !important;
   padding-top: 0px !important;
   text-shadow: none !important;
@@ -1650,6 +1714,15 @@ div.card {
 }
 
 @media only screen and (max-width: 420px) {
+  .paddding_mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .w-75 {
+    width: 100% !important;
+  }
   .col-12 {
     padding-left: 0px;
     padding-right: 0px;
@@ -1735,9 +1808,46 @@ div.card {
       }
     }
   }
+
+  .glide__slides {
+    .glide__slide {
+      .row.first {
+        background-position: left !important;
+        background-size: inherit !important;
+        .col-sm-4 {
+          .p-3 {
+            padding: 5px !important;
+            a{
+              h3 {
+                font-size: 14px;
+                margin-bottom: 5px;
+              }
+            }
+          }
+        }
+      }
+      .row.second {
+        h3 {
+          font-size: 14px;
+        }
+      }
+      .row.third {
+        background-position:left !important;
+        background-size: 350% !important;
+        background-repeat: no-repeat;
+
+        h3 {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 576px) {
+  .job-home {
+    display: none;
+  }
   .form-group{
     margin-bottom: 0.5rem;
   }
@@ -1842,6 +1952,9 @@ div.card {
 }
 
 @media only screen and (max-width: 1024px) {
+  .w-75 {
+    width: 100% !important;
+  }
   .form-group{
     margin-bottom: 0.5rem;
   }
@@ -1863,8 +1976,8 @@ div.card {
     .container {
       .navbar-brand {
         .logo-full-size {
-          width: 150px;
-          height: 40px;
+          width: 185px;
+          height: 75px;
         }
       }
       .slogan-title {
@@ -1948,23 +2061,24 @@ div.card {
   }
   body {
     .navbar-laravel {
+      height: 120px;
       .container {
         .navbar-brand {
           padding-top: 5px;
           padding-bottom: 5px;
           margin-left: 3rem;
           .logo-full-size {
-            width: 100px;
-            height: 45px;
+            width: 250px;
+            height: 110px;
           }
         }
         .navbar-collapse {
           .navbar-nav {
             .nav-item {
               .nav-link {
-                color: $cyan_green;
+                color: $dark_green;
                 font-size: 80%;
-                font-weight: normal;
+                font-weight: bold;
                 &:hover {
                   color: white;
                 }

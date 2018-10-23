@@ -8,15 +8,15 @@
     {{ "HR Strategy Co., Ltd | Công ty TNHH Chiến Lược Nhân Lực _ Providing: ESS Service, Headhunter Service, Training Service, Human Capital Consultancy, Outsourcing & Staffing Services, MC Service,Cung cấp Dịch vụ tuyển dụng, đào tạo, tư vấn, thuê ngoài nhân lực, dịch vụ cung cấp MC " }}
 @endsection
 @section('content')
-    <div class="container-fluid background-gradient-orange-violet border-top-green padding-bottom-10">
-        <div class=" container no-padding-left-right no-padding-top shadow-lg mt-4 mb-4" id="contact-container">
+    <div class="container-fluid background-white border-top-green padding-bottom-10">
+        <div class="container no-padding-left-right no-padding-top shadow-lg mt-4 mb-4 rounded" id="contact-container">
             <div class="card card-no-border">
-                <div class="card-header no-border-radius background-gradient-purple no-padding-left-right no-padding-top no-padding-bottom">
-                    <h5 class="font-playfair white-text text-20 text-center text-shadown-orange-thin padding-around-20 text-uppercase">
-                        <i class="fa fa-user-circle-o fa-2x mr-3" aria-hidden="true"></i>&nbsp;Dành cho khách hàng
-                    </h5>
-                    <div class="shade-dark-purple"></div>
-                </div>
+                {{--<div class="card-header no-border-radius background-gradient-purple no-padding-left-right no-padding-top no-padding-bottom">--}}
+                    {{--<h5 class="font-playfair white-text text-20 text-center text-shadown-orange-thin padding-around-20 text-uppercase">--}}
+                        {{--<i class="fa fa-user-circle-o fa-2x mr-3" aria-hidden="true"></i>&nbsp;Dành cho khách hàng--}}
+                    {{--</h5>--}}
+                    {{--<div class="shade-dark-purple"></div>--}}
+                {{--</div>--}}
                 <div class="">
                     <div class="card-body padding-top-30">
                         <div class="row">
@@ -31,47 +31,56 @@
                         <form action="#" id="formlienhe_khach" onsubmit="return validateForm();">
                             <div class="row no-padding-left-right">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="name"></label>
-                                        <input type="text" class="form-control border-around-dash-green-m" name="name" id="name_guest" placeholder="Full Name" required>
+                                    <div class="row form-group mb-2">
+                                        <div class="col-3 text-md-right">
+                                            <label for="name_guest" class="text-11">Name</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" class="form-control shadow-sm" name="name" id="name_guest" placeholder="Full Name" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="phone"></label>
-                                        <input type="tel" class="form-control border-around-dash-green-m" name="phone" id="phone_guest" placeholder="Phone" required>
+                                    <div class="form-group mb-2 row">
+                                        <div class="col-3 text-md-right">
+                                            <label for="phone_guest" class="text-11 ">Phone</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="tel" class="form-control shadow-sm" name="phone" id="phone_guest" placeholder="Phone" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email"></label>
-                                        <input type="email" class="form-control border-around-dash-green-m" name="email" id="email_guest" placeholder="Email" required>
+                                    <div class="form-group mb-2 row">
+                                        <div class="col-3 text-md-right">
+                                            <label for="email_guest" class="text-11 ">Email</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="email" class="form-control shadow-sm" name="email" id="email_guest" placeholder="Email" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="address"></label>
-                                        <input type="text" class="form-control border-around-dash-green-m" name="address" id="address_guest" placeholder="Address" required>
+                                    <div class="form-group row mb-2">
+                                        <div class="col-3 text-md-right">
+                                            <label for="address_guest" class="text-11   ">Address</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" class="form-control shadow-sm" name="address" id="address_guest" placeholder="Address" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="title"></label>
-                                        <input type="text" class="form-control border-around-dash-green-m" name="title" id="title_guest" placeholder="Title" required>
+                                    <div class="form-group row mb-2">
+                                        <div class="col-3 text-md-right ">
+                                            <label for="title_guest" class="text-11 ">Title</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" class="form-control shadow-sm" name="title" id="title_guest" placeholder="Title" required>
+                                        </div>
+
                                     </div>
                                 </div>
-                                {{--<div class="col-sm-6">--}}
-
-                                {{--</div>--}}
-                                {{--<div class="col-sm-6">--}}
-
-                                {{--</div>--}}
-                                {{--<div class="col-sm-6">--}}
-
-                                {{--</div>--}}
-                                {{--<div class="col-sm-6">--}}
-
-                                {{--</div>--}}
                                 <div class="col-sm-6 ">
                                     <div class="form-group">
-                                        <label for="title"></label>
-                                        <textarea  class="form-control border-around-dash-green-m image-full-height" name="contentInfo" rows="24" id="contentlienhe_guest" placeholder="Content" required style="min-height: 100px;"></textarea>
+                                        <label for="contentlienhe_guest" class="d-sm-block d-md-none">Content</label>
+                                        <textarea  class="form-control image-full-height shadow-sm" name="contentInfo" rows="15" id="contentlienhe_guest" placeholder="Content" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 padding-bottom-40 mt-4 text-center">
-                                    <button class="btn background-gradient-purple white-text btn-round pl-3 pr-3 text-20 box-shadown-light-dark " role="button" type="submit"><i class="fa fa-paper-plane mr-2"></i>Send Informations</button>
+                                    <button class="btn background-green white-text btn-round pl-3 pr-3 text-20 box-shadown-light-dark " role="button" type="submit"><i class="fa fa-paper-plane mr-2"></i>Send</button>
                                 </div>
 
                             </div>

@@ -128,7 +128,7 @@
             // event.stopPropagation();
             swal({
                 title: "Bạn có thực sự muốn xóa?",
-                text: "Nếu xóa Job Type thì hệ thống sẽ xóa tất cả District thuộc về nó",
+                text: "Nếu xóa Province thì hệ thống sẽ xóa tất cả District thuộc về nó",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

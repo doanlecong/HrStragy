@@ -144,7 +144,7 @@
             // event.stopPropagation();
             swal({
                 title: "Bạn có thực sự muốn xóa?",
-                text: "Nếu xóa Job Type thì hệ thống sẽ xóa tất cả Job Category và Job Level thuộc về nó",
+                text: "Nếu xóa Country thì hệ thống sẽ xóa tất cả Provinces và Dictricts thuộc về nó",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

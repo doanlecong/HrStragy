@@ -11,13 +11,14 @@
 @section('content')
     <div class="container">
         <div >
-            <div style="background: url('{{asset('images/people.jpg')}}'); background-color: #a3dcbc; background-position: center; background-size: cover; background-blend-mode: multiply;" >
-                <h1 class="pt-5 mb-5 ml-3 white-text text-uppercase font-playfair text-shadown-orange-thin text-center">Recruitment Service Job Posting</h1>
-                <div class="row mb-5 shadow-lg no-padding-left-right no-padding-top no-padding-bottom">
+            <div id="top_place_job">
+                {{--style="background: url('{{asset('images/people.jpg')}}'); background-color: #a3dcbc; background-position: center; background-size: cover; background-blend-mode: multiply;" id="top_place_job"--}}
+                {{--<h1 class="pt-5 mb-5 ml-3 white-text text-uppercase font-playfair text-shadown-orange-thin text-center">Recruitment Service Job Posting</h1>--}}
+                <div class="row mb-5 shadow-sm no-padding-left-right no-padding-top no-padding-bottom">
                     <div class="col-sm-12 no-padding-left-right">
-                        <div class="row background-tranparent padding-around d-flex justify-content-center no-padding-left-right">
+                        <div class="row padding-around d-flex justify-content-center no-padding-left-right">
                             <div class="col-sm-12 col-md-4 ">
-                                <input type="text" class="form-control" id="name-company" placeholder="Keywords" style="font-size: 0.9rem; padding: 0.55rem 0.5rem; line-height: 1.3;">
+                                <input type="text" class="form-control text-placeholder-green" id="name-company" placeholder="Keywords" style="font-size: 0.9rem; padding: 0.55rem 0.5rem; line-height: 1.3;border-radius: 5px !important;">
                             </div>
                             <div class="col-sm-12 col-md-4 no-padding-left">
                                 <select name="" id="job_type" class="form-control" multiple>
@@ -29,7 +30,7 @@
                             <div class="col-sm-12 col-md-3 no-padding-right">
                                 <select name="`" id="job_location" class="form-control" multiple>
                                     @foreach($provinces as $province)
-                                        <option value="{{ $province->id}}">{{ $province->name." - ".$province->country->name }}</option>
+                                        <option value="{{ $province->id }}">{{ $province->name." - ".$province->country->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -41,45 +42,32 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="ml-auto mr-auto font-playfair green-text">The Jobs Need You !</h3>
-                </div>
-            </div>
+
 
             <div class="row">
                 <div class="col-sm-9 no-padding-left-right" id="job_list">
                     @if(count($jobs) > 0)
                         @foreach($jobs as $job)
-                            <div class="row mt-2 ml-2 mr-2  border-left-green-m background-litle-white box-shadown-light-dark mb-3">
-                                <div class="col-sm-4 no-padding-left" style="overflow: hidden;">
-                                    @if($job->image != null && $job->image != "NULL" )
-                                        <img src="{{ $job->image }}" alt="{{ $job->job_name }}"
-                                             class=" image-full-width scale-onetwo image-full-height" style="height: 150px; object-fit: cover;" title="{{ $job->job_name }}">
-                                    @else
-                                        <img src="{{ asset('upload/images/blankimage.jpg') }}"
-                                             class=" image-full-width" title="{{ $job->job_name }}">
-                                    @endif
-                                </div>
-                                <div class="col-sm-8">
+                            <div class="row mt-2 ml-2 mr-2  border-left-green-m background-white box-shadown-light-dark mb-3">
+                                {{--<div class="col-sm-4 no-padding-left" style="overflow: hidden;">--}}
+                                    {{--@if($job->image != null && $job->image != "NULL" )--}}
+                                        {{--<img src="{{ $job->image }}" alt="{{ $job->job_name }}"--}}
+                                             {{--class=" image-full-width scale-onetwo" style=" object-fit: cover;" title="{{ $job->job_name }}">--}}
+                                    {{--@else--}}
+                                        {{--<img src="{{ asset('upload/images/blankimage.jpg') }}"--}}
+                                             {{--class=" image-full-width" title="{{ $job->job_name }}">--}}
+                                    {{--@endif--}}
+                                {{--</div>--}}
+                                <div class="col">
                                     <h5 class="font-roboto font-weight-bold blue-text mt-3">
                                         <a class=" animate-bottom-nocontent green-text"
                                            href="{{ route('jobsearch.viewJob', $job->slug.".html") }}">{{ $job->job_name }}</a>
                                     </h5>
-                                    <small>Industry : {{ $job->jobType->abbr }}</small>
-                                    <p class="font-roboto text-dark">
+                                    <div style="font-size: 13px;">Industry : <span class="badge background-green white-text text-15">{{ $job->jobType->abbr }}</span></div>
+                                    <div class="font-roboto-light text-dark text-justify " style="font-size: 13px;">
                                         {{ mb_substr(strip_tags($job->description), 0, 200) }}{{ strlen(strip_tags($job->description)) > 200 ? "...":"" }}
-                                    </p>
-                                    <h6>Salary : {{ $job->salary }}</h6>
-                                    <h6>
-                                        <div class="text-left">
-                                            Company :{{ $job->company->name }}
-                                        </div>
-                                        <div class="text-right">
-                                            Accepted In : <small class="green-text">{{ $job->time_from }} -- {{ $job->time_to }}</small>
-                                        </div>
-
-                                    </h6>
+                                    </div>
+                                    <h6 class="orange-text">Salary : {{ $job->salary }}</h6>
                                 </div>
                             </div>
                         @endforeach
@@ -89,19 +77,19 @@
                         </div>
 
                     @endif
-                    <div class="mt-4">
+                    <div class="mt-4 col">
                         {{ $jobs->links() }}
                     </div>
                 </div>
-                <div class="col-sm-3 no-padding-right">
-                    <div class="card card-no-border shadow-lg">
-                        <div class="card-header card-no-border">
-                            <h4 class=" green-text"><i class="fa fa-check-circle mr-3"></i>For Candidates</h4>
+                <div class="col-sm-3 no-padding-right" >
+                    <div class="card card-no-border shadow">
+                        <div class="card-header background-litle-white card-no-border">
+                            <h4 class="font-roboto-light green-text"><i class="fa fa-check-circle mr-3"></i>For Candidates</h4>
                         </div>
                         <div class="card-body">
-                            <a href="{{ route('contactCandidate') }}" class="btn btn-round text-15 white-text btn-block box-shadown-light-dark btn-green">Submit Your Profile</a>
+                            <a href="{{ route('contactCandidate') }}" class="btn btn-round text-15 font-roboto-light white-text btn-block box-shadown-light-dark btn-green">Submit Your Profile</a>
                             <hr>
-                            <a href="#footer" class="btn btn-round text-15 white-text btn-block box-shadown-light-dark btn-green">ContactUs</a>
+                            <a href="#footer" class="btn btn-round text-15 white-text btn-block font-roboto-light box-shadown-light-dark btn-green">ContactUs</a>
                             <hr>
                             <div class="border-around-dash-green-m padding-top-20">
                                 <h4 class="text-center green-text font-playfair">Nhận Job Mới Nhất</h4>
@@ -125,7 +113,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group text-center mt-3">
-                                            <button type="submit" class="btn btn-round btn-green text-18 box-shadown-light-dark"><i class="fa fa-envelope mr-1"></i> Subscribe</button>
+                                            <button type="submit" class="btn btn-round btn-green text-18 box-shadown-light-dark font-weight-light"><i class="fa fa-envelope mr-1"></i> Subscribe</button>
                                         </div>
                                     </form>
                                 </div>
@@ -152,14 +140,21 @@
                 "crossDomain": true,
                 "url": url,
                 "method": "GET",
-            }
+            };
             $.ajax({
                 url: url,
                 type: "GET",
                 success:function(response) {
                     $('#job_list').html(response);
                     $('#modalShowLoading').modal('hide');
+                    $('html, body').animate({
+                        scrollTop: $("#top_place_job").offset().top
+                    }, 1000, function(){
 
+                        // // Add hash (#) to URL when done scrolling (default click behavior)
+                        // window.location.hash = hash;
+                    });
+                    // $(document).scrollTop( $("#top_place_job").offset().top );
                 }, error:function (e) {
                     @include('layouts.assessories.handle_error_ajax')
                 }

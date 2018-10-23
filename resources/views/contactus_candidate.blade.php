@@ -8,18 +8,18 @@
     {{ "HR Strategy Co., Ltd | Công ty TNHH Chiến Lược Nhân Lực _ Providing: ESS Service, Headhunter Service, Training Service, Human Capital Consultancy, Outsourcing & Staffing Services, MC Service,Cung cấp Dịch vụ tuyển dụng, đào tạo, tư vấn, thuê ngoài nhân lực, dịch vụ cung cấp MC " }}
 @endsection
 @section('content')
-    <div class="container-fluid background-light-green border-top-green">
-        <div class="container no-padding-left-right no-padding-top shadow-lg" id="contact-container">
+    <div class="container-fluid background-white pt-3 pb-3">
+        <div class="container no-padding-left-right no-padding-top shadow-lg rounded" id="contact-container">
             <div class="card card-no-border mb-1">
-                <div class="card-header card-no-border no-border-radius background-gradient-purple no-padding-left-right no-padding-top no-padding-bottom">
-                    <h5 class="font-playfair white-text text-20 text-shadown-orange-thin padding-leftright-10 text-center padding-around-20 text-uppercase">
-                        <i class="fa fa-user fa-2x mr-2" aria-hidden="true"></i>&nbsp;Dành cho ứng viên
-                    </h5>
-                    <div class="shade-dark-purple"></div>
-                </div>
+                {{--<div class="card-header card-no-border no-border-radius background-gradient-purple no-padding-left-right no-padding-top no-padding-bottom">--}}
+                    {{--<h5 class="font-playfair white-text text-20 text-shadown-orange-thin padding-leftright-10 text-center padding-around-20 text-uppercase">--}}
+                        {{--<i class="fa fa-user fa-2x mr-2" aria-hidden="true"></i>&nbsp;Dành cho ứng viên--}}
+                    {{--</h5>--}}
+                    {{--<div class="shade-dark-purple"></div>--}}
+                {{--</div>--}}
                 <div class="card-body ">
                     <div class= "row">
-                        <div class="col-12 padding-top-30">
+                        <div class="col-12">
                             <h5 class="font-playfair text-justify">
                                 Should you wish <span class="font-weight-bold">HRStragy</span> to help you in career path, please fill full your informations as below.
                                 We will turn back you as soon as we got a suitable job for you
@@ -28,104 +28,146 @@
                     </div>
                     <form action="#" id="formlienhe_can" onsubmit="return validateForm();">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Name (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="name_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Name (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control " required id="name_can">
+                                        <input type="text" id="job_id" hidden value="{{ $job_id ?? -1 }}">
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Phone (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="phone_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Phone (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control " required id="phone_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Email (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="email_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Email (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control " required id="email_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Address (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="address_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Expected Working Location (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control " required id="address_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Current Position (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="current_post_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Current Position (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control " required id="current_post_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Expected Position (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m"required id="expect_post_can">
+                            <div class="col-sm-4 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-3 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Expected Position (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control "required id="expect_post_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Industry (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="industry_can">
+                            <div class="col-sm-6 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-2 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Industry (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control " required id="industry_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Language Skills (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="language_skill_can">
+                            <div class="col-sm-6 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-2 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Language Skills (<span class="text-danger">*</span>) :
+                                        </label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control " required id="language_skill_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Current Salary (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="current_salary_can">
+                            <div class="col-sm-6 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-2 no-padding-right">
+                                        <label for="" class="text-11">
+                                            Current Salary (<span class="text-danger">*</span>)
+                                        </label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control " required id="current_salary_can">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="">
-                                        Expected Salary (<span class="text-danger">*</span>) :
-                                    </label>
-                                    <input type="text" class="form-control border-around-dash-green-m" required id="expect_salary_can">
+                            <div class="col-sm-6 no-padding-left-right">
+                                <div class="form-group row">
+                                    <div class="col-2 no-padding-right">
+                                        <label for="expect_salary_can" class="text-11">
+                                            Expected Salary (<span class="text-danger">*</span>)
+                                        </label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control " required id="expect_salary_can">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="">
-                                        Giới Thiệu (<span class="text-danger">*</span>) :
+                                    <label for="gioithieu_can" class="text-11">
+                                        Sumary your qualifications & Experiences here (<span class="text-danger">*</span>) :
                                     </label>
-                                    <textarea type="text" class="form-control border-around-dash-green-m" rows="5" required id="gioithieu_can"></textarea>
+                                    <textarea type="text" class="form-control " rows="5" required id="gioithieu_can"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="">
-                                        File Description :
+                                    <label for="file_can" class="text-11">
+                                        Attached your profile
                                     </label>
-                                    <input type="file" class="form-control-file form-control border-around-dash-green-m" id="file_can">
+                                    <input type="file" class="form-control-file form-control " id="file_can">
                                 </div>
                             </div>
                             <div class="col-sm-12 mt-4 text-center">
-                                <button style="z-index: 1000" class="btn background-gradient-purple white-text box-shadown-light-dark  btn-round pl-3 pr-3 text-18" type="submit" role="button"><i class="fa fa-paper-plane mr-2"></i>Send Informations</button>
+                                <button style="z-index: 1000" class="btn background-green white-text box-shadown-light-dark  btn-round pl-3 pr-3 text-18" type="submit" role="button"><i class="fa fa-paper-plane mr-2"></i>Send</button>
                             </div>
                         </div>
                     </form>
@@ -152,6 +194,7 @@
             let expectSalary = document.getElementById('expect_salary_can');
             let gioithieu = document.getElementById('gioithieu_can');
             let file = document.getElementById('file_can');
+            let jobId = document.getElementById('job_id').value;
 
             let isError =  false;
             if (name.value == "") {
@@ -253,7 +296,7 @@
                     title: "Opp !",
                     text: "Xin lỗi . File bạn gửi có dung lượng lớn quá(max: 3MB) !",
                     icon: "error",
-                    button: "Diền Tiếp",
+                    button: "Điền Tiếp",
                 });
                 return false;
             } else {
@@ -273,6 +316,7 @@
             formData.append('current_salary', currentSalary.value);
             formData.append('expect_salary', expectSalary.value);
             formData.append('gioithieu', gioithieu.value);
+            formData.append('job_id', jobId);
 
             if(file.value != "") {
                 formData.append('file', file.files[0]);

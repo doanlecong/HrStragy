@@ -209,6 +209,7 @@ class CompanyController extends Controller
     public function delete(Request $request, $id) {
         $comp = Company::find($id);
         if($comp !=null) {
+            $comp->jobs()->delete();
             $comp->delete();
             if($request->isXmlHttpRequest()) {
                 return response()->json([

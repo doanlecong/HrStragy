@@ -29,4 +29,20 @@ return [
     // array Image file that accept to show
 
     'image_types' => ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
+
+
+    'type_display_job' => 'created_time', // or 2 options : 'created_time' or 'time_end_job' :if set this , job will be displayed to the time that job is lasted to
+    'limit_number_job_on_homepage' => 10, // you can set any positive number but should not be too large ( may be between 10 and 30 . I think ...)
+    // Thông tin giới tính
+    'sex_0' => '',
+    'sex_1' => 'Nam',
+    'sex_2' => 'Nữ',
+    'sex_3' => 'Nam & Nữ',
+
+
+    // Image Slider In Wellcome Page
+    'image_slider_1' => 'images/handshake-min.jpg',
+    'image_slider_2' => 'images/Candidates.jpg',
+    'image_slider_3' => 'images/employer-min.jpg',
+
 ];

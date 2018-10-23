@@ -75,6 +75,21 @@
                                             <input type="text" class="input-sm form-control" id="to" name="time_to" placeholder="Active To"/>
                                         </div>
                                         <hr>
+                                        <div class="row">
+                                            <div class="col-6 form-group no-padding-left">
+                                                <label for="title">Age (<small>Range or Single Value</small>): </label>
+                                                <input type="text" name="age" placeholder="20 - 30" class="form-control">
+                                            </div>
+                                            <div class="col-6 form-group no-padding-right">
+                                                <label for="title">Sex : </label>
+                                                <select name="sex" id="sex" class="form-control">
+                                                    <option value=""></option>
+                                                    <option value="1">{{ config('global.sex_1') }}</option>
+                                                    <option value="2">{{ config('global.sex_2') }}</option>
+                                                    <option value="3">{{ config('global.sex_3') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -200,7 +215,7 @@
     <script>
         canUseSlug = false;
         $(document).ready(function () {
-            $('#job_type_id, #company_id, #country_id').select2({placeholder: "Please choose"});
+            // $('#job_type_id').select2({placeholder: "Please choose"});// , #company_id, #country_id
             $('#slug').click(function () {
                 let val = $(this).val();
                 if(val != "") {
@@ -378,64 +393,74 @@
             let description = document.getElementById('description');
             let salary = document.getElementById('salary');
             let country_id = document.getElementById('country_id');
-
+            let arr = [];
             let isError = false;
             if(name.value == "") {
                 name.style.borderBottom = "5px solid red";
                 isError = true;
+                arr.push('name');
             } else {
                 name.style.borderBottom = "5px solid green";
             }
             if(job_type_id.value == "") {
                 job_type_id.style.borderBottom = "5px solid red";
                 isError = true;
+                arr.push('jobtype');
             } else  {
                 job_type_id.style.borderBottom = "5px solid green";
             }
             if(image.value == "") {
                 isError = true;
                 image.style.borderBottom = "5px solid red";
+                arr.push('image');
             } else {
                 image.style.borderBottom = "5px solid green";
             }
             if(from.value == "") {
                 isError = true;
                 from.style.borderBottom = "5px solid red";
+                arr.push('from');
             } else  {
                 from.style.borderBottom = "5px solid green";
             }
             if(to.value == "") {
                 isError = true;
                 to.style.borderBottom = "5px solid red";
+                arr.push('to');
             } else  {
                 to.style.borderBottom = "5px solid green";
             }
             if(company_id.value == "") {
                 isError = true;
                 company_id.style.borderBottom = "5px solid red";
+                arr.push('companyid');
             } else  {
                 company_id.style.borderBottom = "5px solid green";
             }
             if(description.value == "") {
                 isError = true;
                 description.style.borderBottom = "5px solid red";
+                arr.push('description');
             } else {
                 description.style.borderBottom = "5px solid green";
             }
             if(salary.value == "") {
                 isError = true;
                 salary.style.borderBottom = "5px solid red";
+                arr.push('salary');
             } else {
                 salary.style.borderBottom = "5px solid green";
             }
             if(country_id.value == "") {
                 isError = true;
                 country_id.style.borderBottom = "5px solid red";
+                arr.push('country');
             } else {
                 country_id.style.borderBottom = "5px solid green";
             }
 
             if(isError) {
+                console.log(arr);
                 swal({
                     title: "Opp !",
                     text: "Some informations is missing. Check the lable has red mark!",
@@ -447,7 +472,7 @@
             if(!canUseSlug) {
                 swal({
                     title: "Opp !",
-                    text: "You Should Change The Link To Show . Current , It is diplicated with the other jobs",
+                    text: "You Should Change The Link To Show . Current , It is duplicated with the other jobs",
                     icon: "error",
                     button: "Đóng thôi !",
                 });

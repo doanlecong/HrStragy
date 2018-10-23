@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Purifier;
 use Validator;
+use App\Job;
 class ContactUsPublicController extends Controller
 {
     //
@@ -52,6 +53,7 @@ class ContactUsPublicController extends Controller
     }
 
     public function storeCandidateContact(Request $request) {
+//        return $request
         try {
             $validate = Validator::make($request->all(),[
                 'name' => 'required|max:200',
@@ -66,6 +68,7 @@ class ContactUsPublicController extends Controller
                 'expect_salary' =>  'required|max:200',
                 'gioithieu' => 'required',
                 'file' => 'sometimes|file|max:3072',
+                'job_id' => 'required|max:200',
             ]);
             if(!$validate->fails()) {
                 $newContact = new CandidateInfo();
@@ -89,6 +92,10 @@ class ContactUsPublicController extends Controller
                         $newContact->file_type = $file->getClientOriginalExtension();
                         Storage::disk('public')->put($fileName,File::get($file));
                     }
+                }
+                if($request->job_id != '-1' && $request->job_id != -1) {
+                    Job::increaseApplyNumber($request->job_id);
+                    $newContact->job_id = $request->job_id;
                 }
                 $newContact->save();
                 return response()->json([

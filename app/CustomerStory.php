@@ -28,4 +28,30 @@ class CustomerStory extends Model
 
         return $customerStory;
     }
+
+    public static function checkSlug($slug = null, $id = null) {
+        $job = null;
+        if(!empty($slug)) {
+            if(!empty($id)) {
+                $job = CustomerStory::where('slug',$slug)->where('id','<>', $id)->first();
+            }
+            else {
+                $job = CustomerStory::where('slug', $slug)->first();
+            }
+        }
+        return ($job != null) ? false : true;
+    }
+
+    public static function findBySlug($slug) {
+        return CustomerStory::where('slug',$slug)->where('status',config('global.statusActive'))->first();
+    }
+
+    public static function convertSlug($raw) {
+        $cleanLink = strip_tags(Purifier::clean($raw));
+        $arr = explode('.',$cleanLink);
+        if (count($arr) == 2 ) {
+            return $arr[0];
+        }
+        return false;
+    }
 }

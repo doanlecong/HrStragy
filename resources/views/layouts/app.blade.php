@@ -24,17 +24,14 @@
 </head>
 <body>
 <div id="fb-root"></div>
-<div id="fb-root"></div>
-<script async>
-    (function(d, s, id) {
+<script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0';
+        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.1';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
+    }(document, 'script', 'facebook-jssdk'));</script>
+<div id="fb-root"></div>
 @if(auth()->check())
     <nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top border-top-green-m  bg-info">
         <div class="container">
@@ -47,12 +44,15 @@
     </nav>
 @endif
 
-<nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top border-top-green-m" id="navbar-under-top">
+<nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top" id="navbar-under-top">
 
     <div class="container no-padding-left-right">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="img-fluid logo-full-size" src="{{ asset('images/Logo.png')}}">
         </a>
+        {{--<a href="{{ url('/') }}" class="navbar-brand ml-0 job-home">--}}
+            {{--<h3 class="green-text">HRStrategy</h3>--}}
+        {{--</a>--}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
@@ -77,7 +77,7 @@
                 case "":
                     $isHome = true;
                     break;
-                case "about-us":
+                case "about":
                     $isAbout = true;
                     break;
                 case "job-search":
@@ -101,36 +101,42 @@
             }
             ?>
             <ul class="navbar-nav ml-auto ul-list">
-                <li class="nav-item "><a class="nav-link {{ $isHome ? "selected" : ""}} " href="{{ route('homepage') }}">HOME</a></li>
-                <li class="nav-item">
-                    <a class="nav-link {{ $isAbout ? "selected" : ""}}" href="{{ route('aboutus') }} ">ABOUT US</a>
+                <li class="nav-item {{ $isHome ? "selected" : ""}}"><a class="nav-link" href="{{ route('homepage') }}">HOME</a></li>
+                <li class="nav-item dropdown {{ $isAbout ? "selected" : ""}}">
+                    <a class="nav-link dropdown-toggle" href="{{ route('aboutus') }} ">ABOUT</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ route('aboutus') }} ">ABOUT US</a>
+                        <a class="dropdown-item" href="{{ route('ourStaff') }} ">OUR STAFFS</a>
+                        <a class="dropdown-item" href="{{ route('companyProfile') }} ">COMPANY PROFILE</a>
+                        <a class="dropdown-item" href="{{ route('internalRecruitment') }} ">INTERNAL RECRUITMENT</a>
+                    </div>
                 </li>
-                <li class="nav-item "><a class="nav-link {{ $isJobSearch ? "selected" : ""}}" href="{{ route('jobsearch') }}" >JOB SEARCH</a></li>
-                <li class="nav-item dropdown ">
-                    <a class="nav-link {{ $isOurService ? "selected" : ""}} dropdown-toggle" href="{{ route('ourservice') }}">OUR SERVICES</a>
+                <li class="nav-item {{ $isJobSearch ? "selected" : ""}}"><a class="nav-link " href="{{ route('jobsearch') }}" >JOB SEARCH</a></li>
+                <li class="nav-item dropdown {{ $isOurService ? "selected" : ""}}">
+                    <a class="nav-link dropdown-toggle" href="{{ route('ourservice') }}">OUR SERVICES</a>
                     @if(!empty($ourservices))
                         <div class="dropdown-menu">
                             @foreach($ourservices as $service)
-                                <a class="dropdown-item" href="{{ route('view_service','?service='.encrypt($service->id)) }}">{{ mb_substr($service->title, 0 ,30) }}{{ strlen($service->title) > 30 ? "...":"" }}</a>
+                                <a class="dropdown-item" href="{{ route('view_service', $service->slug.".html") }}">{{ mb_substr($service->title, 0 ,30) }}{{ strlen($service->title) > 30 ? "...":"" }}</a>
                             @endforeach
                         </div>
                     @endif
                 </li>
-                <li class="nav-item dropdown ">
-                    <a class="nav-link {{ $isClientService ? "selected" : ""}} dropdown-toggle" href="{{ route('clientservice') }}">Client Services</a>
+                <li class="nav-item dropdown {{ $isClientService ? "selected" : ""}}">
+                    <a class="nav-link dropdown-toggle" href="#">Client Services</a>
                     @if(!empty($clientServices))
                         <div class="dropdown-menu">
                             @foreach($clientServices as $service)
-                                <a class="dropdown-item" href="{{ route('view_type_client_service','service='.encrypt($service->id)) }}">{{ mb_substr($service->name, 0 ,30) }}{{ strlen($service->name) > 30 ? "...":"" }}</a>
+                                <a class="dropdown-item" href="{{ route('view_type_client_service',$service->slug.".html") }}">{{ mb_substr($service->name, 0 ,30) }}{{ strlen($service->name) > 30 ? "...":"" }}</a>
                             @endforeach
                             <a class="dropdown-item" href="{{ route('customerStory') }}">Meaning Short Story</a>
                         </div>
                     @endif
                 </li >
                 {{--<li class="nav-item "><a class="nav-link {{ $isClientService ? "selected" : ""}}" href="{{ route('clientservice') }}" style="text-transform: uppercase">CLIENT SERVICES</a></li>--}}
-                <li class="nav-item "><a class="nav-link {{ $isCooperate ? "selected" : ""}}" href="{{ route('ourcooperate') }}" style="text-transform: uppercase">OUR COOPERATE</a></li>
-                <li class="nav-item ">
-                    <a class="nav-link {{ $isContact ? "selected" : ""}}  dropdown-toggle" href="#" style="text-transform: uppercase" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CONTACT US</a>
+                <li class="nav-item {{ $isCooperate ? "selected" : ""}}"><a class="nav-link " href="{{ route('ourcooperate') }}" style="text-transform: uppercase">OUR COOPERATE</a></li>
+                <li class="nav-item dropdown {{ $isContact ? "selected" : ""}}">
+                    <a class="nav-link dropdown-toggle" href="#" style="text-transform: uppercase" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CONTACT US</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('contactCandidate') }}">Contact For Candidate</a>
                         <a class="dropdown-item" href="{{ route('contactGuest') }}" >Contact For Guest</a>
@@ -148,7 +154,7 @@
     @yield('content')
 </main>
 @if(!empty($info))
-    <div class="container-fluid background-tranparent border-top-green-m no-padding-left-right">
+    <div class="container-fluid background-white border-top-green-m no-padding-left-right">
         @include('layouts.footer')
     </div>
 @endif

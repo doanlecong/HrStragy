@@ -30,7 +30,7 @@
                                     <tr id="row{{$s->id}}">
                                         <td>{{ $s->id }}</td>
                                         <td title="{{ strip_tags($s->title)}}">{{ strip_tags(mb_substr($s->title,0, 100))}}</td>
-                                        <td><span class="btn background-green">{{ $s->type->name }}</span></td>
+                                        <td><span class="btn background-green">{{ $s->type != null ? $s->type->name : ""}}</span></td>
                                         <td>
                                             @if($s->image != null && $s->image != 'NULL')
                                                 <div>

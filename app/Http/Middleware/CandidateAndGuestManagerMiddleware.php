@@ -20,8 +20,9 @@ class CandidateAndGuestManagerMiddleware
         $user = User::all()->count();
         if (!($user == 1)) {
             $candidate_guest= config('global.candidate_guest');
+            $jobandrelate= config('global.job_company_location');
             $admin = config('global.admin');
-            if (!Auth::user()->hasRole($admin) && !Auth::user()->hasRole($candidate_guest)) //If user does //not have this permission
+            if (!Auth::user()->hasRole($admin) && !Auth::user()->hasRole($candidate_guest) && !Auth::user()->hasRole($jobandrelate)) //If user does //not have this permission
             {
                 abort('403');
             }

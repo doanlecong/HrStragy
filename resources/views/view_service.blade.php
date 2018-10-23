@@ -6,7 +6,7 @@
     {{ "HR Strategy Co., Ltd | Công ty TNHH Chiến Lược Nhân Lực _ Providing: ESS Service, Headhunter Service, Training Service, Human Capital Consultancy, Outsourcing & Staffing Services, MC Service,Cung cấp Dịch vụ tuyển dụng, đào tạo, tư vấn, thuê ngoài nhân lực, dịch vụ cung cấp MC " }}
 @endsection
 @section('content')
-    <div class="container-fluid position-relative">
+    <div class="container-fluid position-relative" hidden>
         <div class="image-bachground"
              style="background-image: url('{{ asset('images/service_background.jpg') }}');
                      background-repeat: no-repeat;
@@ -22,40 +22,40 @@
         >
         </div>
         <div class="present-text position-relative"  data-aos="fade-up" style="padding-top: 100px; padding-bottom: 100px;">
-            <h1 class="text-center font-playfair green-text text-shadown-black text-uppercase" style="font-size: 60px; font-weight: 900">
-                <span class="out-line-green-big">{{ $serviceSelect->title }}</span>
+            <h1 class="text-center font-playfair white-text text-shadown-orange text-uppercase" style="font-size: 3rem; font-weight: 900">
+               {{ $serviceSelect->title }}
             </h1>
         </div>
     </div>
-    <div class="container-fluid mt-2 padding-around-20 position-relative">
+    <div class="container-fluid position-relative mt-2">
         <div class="row background-white padding-bottom-40">
-            <div class="col-sm-3">
+            <div class="col-sm-3 shadow-sm">
                 <aside class="d-flex justify-content-start border-top-green">
                     <nav>
                         <ul style="list-style: none" class="no-padding-left">
                             @foreach($ourservices as $service)
                                 @if($service->id != $serviceSelect->id)
-                                    <li><a href="{{ route('view_service', 'service='.encrypt($service->id)) }}" class="font-playfair text-20 green-text animate-bottom-nocontent">{{ mb_substr($service->title, 0 ,30) }}{{ strlen($service->title) > 30 ? "...":"" }}</a></li>
+                                    <li><a href="{{ route('view_service', $service->slug.".html") }}" class="font-playfair text-20 green-text animate-bottom-nocontent">{{ mb_substr($service->title, 0 ,30) }}{{ strlen($service->title) > 30 ? "...":"" }}</a></li>
                                 @endif
                             @endforeach
                         </ul>
                     </nav>
                 </aside>
             </div>
-            <div class="col-sm-9 no-padding-left">
+            <div class="col-sm-9">
                 <section class="border-top-green " style="width: 100%"  data-aos="fade-up">
-                    <div class="header green-text text-center font-playfair" style="font-size: 3rem">{{ $serviceSelect->title }}</div>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="{{ $serviceSelect->image }}" class=" box-shadown-light-dark shadow-lg w-75">
-                    </div>
-                    <hr>
+                    <div class="header green-text text-center font-playfair" style="font-size: 2rem">{{ $serviceSelect->title }}</div>
+                    {{--<div class="d-flex justify-content-center align-items-center">--}}
+                        {{--<img src="{{ $serviceSelect->image }}" class=" box-shadown-light-dark shadow-lg w-75">--}}
+                    {{--</div>--}}
+                    {{--<hr>--}}
                     {{--<h3 class="font-playfair text-center green-text">--}}
                         {{--{{ strip_tags($serviceSelect->description) }}--}}
                     {{--</h3>--}}
-                    <p class="text-right font-weight-bold green-text">
-                        {{ date('d/m/Y', strtotime($serviceSelect->created_at)) }}
-                    </p>
-                    <h5 class="text-center font-playfair green-text text-20">Giới thiệu</h5>
+                    {{--<p class="text-right font-weight-bold green-text">--}}
+                        {{--{{ date('d/m/Y', strtotime($serviceSelect->created_at)) }}--}}
+                    {{--</p>--}}
+                    {{--<h5 class="text-center font-playfair green-text text-20">Giới thiệu</h5>--}}
                     <hr>
                     <div class="content-service">
                         {!! $serviceSelect->content !!}
@@ -63,7 +63,7 @@
                 </section>
             </div>
         </div>
-        <div class="row mt-5 border-top-green background-white">
+        <div class="row mt-1 border-top-green background-white">
             <div class="container background-litle-white">
                 <div class="row">
                     <div class="col">
@@ -102,7 +102,7 @@
     <script>
         AOS.init({
             offset: 200,
-            duration: 1000,
+            duration: 500,
             easing: 'ease-in-sine',
             delay: 200,
         });

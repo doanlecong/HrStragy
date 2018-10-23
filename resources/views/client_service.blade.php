@@ -22,43 +22,47 @@
         >
         </div>
         <div class="present-text position-relative"  data-aos="fade-up" style="padding-top: 100px; padding-bottom: 100px;">
-            <h1 class="text-center font-playfair green-text text-shadown-black text-uppercase" style="font-size: 60px; font-weight: 900">
-                <span class="out-line-green-big" >Client Services</span>
+            <h1 class="text-center font-playfair white-text text-shadown-orange text-uppercase" style="font-size: 40px; font-weight: 900">
+                Client Services
             </h1>
         </div>
     </div>
-    <div class="container mt-2 padding-around position-relative border-around-dash-green-m">
-        <div class="text-center padding-around " data-aos="fade-up">
-            <h1 class="green-text font-playfair text-shadown-orange-thin">Services That Are Inspired From You</h1>
-        </div>
-        <div class="row no-padding-left-right" data-aos="fade-up">
-            @foreach($clientServices as $service)
-                <div class="col-sm-4">
-                    <div class="card w-100 shadow-lg mb-3 card-rotate box-shadown-light-dark" style="overflow: hidden; min-height: 430px; max-height: 430px;">
-                        <div class="front">
-                            <img class="image-full-width scale-onetwo" style="object-fit: cover; max-height: 200px;" src="{{ $service->image }}" alt="Card image">
-                            <div class="card-body position-absolute" style="bottom: 30px">
-                                <h4 class="card-title text-center">{{ $service->name }}</h4>
-                                <p class="card-text text-justify">{{ mb_substr(strip_tags($service->descript),0, 100)}}{{ strlen(strip_tags($service->descript)) > 100 ? "..." : "" }}</p>
-                            </div>
-                        </div>
-                        <div class="back border-around-dash-green-m">
-                            <div class="card-body ">
-                                <h5 class="text-center font-playfair text-20">
-                                    More Detail
-                                </h5>
-                                <p class="text-justify text-18 font-weight-bold">
-                                    {{ mb_substr(strip_tags($service->descript),0, 300)}}{{ strlen(strip_tags($service->descript)) > 300 ? "..." : "" }}
-                                </p>
-                                <div class="text-center">
-                                    <a href="{{ route('view_type_client_service','service='.encrypt($service->id)) }}" class="btn btn-green btn-round white-text box-shadown-light-dark">View Detail</a>
+    <div class="container mt-2 padding-around  shadow-lg position-relative" style="transform: translateY(-40px); border-top-left-radius: 20px; border-top-right-radius: 20px">
+        {{--<div class="text-center padding-around " data-aos="fade-up">--}}
+            {{--<h1 class="green-text font-playfair text-shadown-orange-thin">Services That Are Inspired From You</h1>--}}
+        {{--</div>--}}
+        <div class="w-75 ml-auto mr-auto">
+            <div class="row no-padding-left-right" data-aos="fade-up">
+                @foreach($clientServices as $service)
+                    <div class="col-sm-4">
+                        <div class="card w-100 mb-3 card-no-border box-shadown-light-dark" style="overflow: hidden; min-height: 400px; max-height: 400px;">
+                            {{--<div class="front">--}}
+                                <img class="image-full-width scale-onetwo" style="object-fit: cover; max-height: 150px;" src="{{ $service->image }}" alt="Card image">
+                                <div class="card-body">
+                                    <a href="{{ route('view_type_client_service', $service->slug.".html") }}" style="text-decoration: none"><h5 class="card-title green-text text-hover-green font-roboto-light text-center">{{ $service->name }}</h5></a>
+                                    <h5 class="text-center  green-text no-padding-top no-padding-bottom">____________</h5>
+                                    <p class="card-text font-roboto-light text-justify">{{ mb_substr(strip_tags($service->descript),0, 100)}}{{ strlen(strip_tags($service->descript)) > 100 ? "..." : "" }}</p>
                                 </div>
-                            </div>
+                            {{--</div>--}}
+                            {{--<div class="back border-around-dash-green-m">--}}
+                                {{--<div class="card-body ">--}}
+                                    {{--<h5 class="text-center font-playfair text-20">--}}
+                                        {{--More Detail--}}
+                                    {{--</h5>--}}
+                                    {{--<p class="text-justify text-18 font-weight-bold">--}}
+                                        {{--{{ mb_substr(strip_tags($service->descript),0, 300)}}{{ strlen(strip_tags($service->descript)) > 300 ? "..." : "" }}--}}
+                                    {{--</p>--}}
+                                    {{--<div class="text-center">--}}
+                                        {{--<a href="{{ route('view_type_client_service','service='.encrypt($service->id)) }}" class="btn btn-green btn-round white-text box-shadown-light-dark">View Detail</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
+
     </div>
 @endsection
 @section('addScript')

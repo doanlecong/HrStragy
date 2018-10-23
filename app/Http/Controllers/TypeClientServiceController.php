@@ -47,7 +47,13 @@ class TypeClientServiceController extends Controller
         ]);
 
         $type = new TypeClientService();
+        $slug = str_slug($request->name, '-');
+        $canUseSlug = TypeClientService::checkSlug($slug, null);
+        if(!$canUseSlug) {
+            $slug = $slug.rand(1000,9999);
+        }
         $type->name = $request->name;
+        $type->slug = $slug;
         $type->image = $request->image;
         $type->descript = Purifier::clean($request->descript);
 
@@ -111,10 +117,18 @@ class TypeClientServiceController extends Controller
 
         $type = TypeClientService::find($id);
         if($type != null) {
+            if($request->name != $type->name) {
+                $slug = str_slug($request->name, '-');
+                if(!TypeClientService::checkSlug($slug, $type->id)) {
+                    $slug = $slug.rand(1000, 9999);
+                }
+                $type->slug = $slug;
+            }
+
             $type->name = $request->name;
             $type->image = $request->image;
             $type->descript = Purifier::clean($request->descript);
-
+            $type->save();
             return redirect()->route('type_client_service.index');
         }
         return redirect()->route('404');

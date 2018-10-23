@@ -11,22 +11,22 @@
 @section('content')
     <div class="container shadow">
         <div>
-            <div class="row bg-info mb-3">
+            <div class="row bg-info mb-3" hidden>
                 <div class="col"
                      style="background:url('/images/exercise.png');background-position: center center; background-size: cover; object-fit: cover; overflow: hidden; height: 200px;
                      background-color: #04C49A;
                      background-blend-mode: color-burn; ">
-                    <h1 class="mt-5 mb-2 ml-3 white-text text-uppercase font-playfair text-shadown-black text-center">Customer Stories</h1>
+                    <h1 class="mt-5 mb-2 ml-3 white-text text-uppercase font-playfair text-shadown-orange-thin text-center">Customer Stories</h1>
                     <p class="text-18 text-center font-roboto-light white-text text-shadown-black">
                         Những câu chuyện mang nhiều ý nghĩa trong việc định hưỡng sự nghiệp của bạn .
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-9">
+            <div class="row mt-2">
+                <div class="col-sm-12">
                     @if(count($custStories) > 0)
                         @foreach($custStories as $custStory)
-                            <div class="row mt-2 ml-2 mr-2  border-left-green-m background-litle-white box-shadown-light-dark mb-3 shadow-sm">
+                            <div class="row mt-2 ml-2 mr-2  border-left-green-m background-litle-white box-shadown-light-dark mb-3">
                                 <div class="col-sm-3 no-padding-left" style="overflow: hidden">
                                     @if($custStory->image_thumb != null && $custStory->image_thumb != "NULL" )
                                         <img src="{{ $custStory->image_thumb }}" alt="{{ $custStory->title }}"
@@ -39,7 +39,7 @@
                                 <div class="col-sm-9">
                                     <h5 class="font-roboto font-weight-bold blue-text mt-3">
                                         <a class=" animate-bottom-nocontent green-text"
-                                           href="{{ route('viewCustomerStory', 'story='.$custStory->id) }}">{{ $custStory->title }}</a>
+                                           href="{{ route('viewCustomerStory', $custStory->slug.".html") }}">{{ $custStory->title }}</a>
                                     </h5>
                                     <p class="font-roboto text-dark text-15">
                                         {{ mb_substr(strip_tags($custStory->description), 0, 130) }}
@@ -57,7 +57,7 @@
                         {{ $custStories->links() }}
                     </div>
                 </div>
-                <div class="col-sm-3 no-padding-right">
+                <div class="col-sm-3 no-padding-right" hidden>
                     <div class="card card-no-border shadow-lg">
                         <div class="card-header card-no-border">
                             <h4 class=" green-text"><i class="fa fa-check-circle mr-3"></i>Information</h4>
@@ -68,7 +68,7 @@
                             Xin cám ơn quý vị đã dành thời gian để đọc qua những bài viết này . Mọi ý kiến thắc mắc , quý vị và các bạn có thể gửi thông tin về form contact us bên dưới
                         </h5>
                             <div class="text-center">
-                                <a class="btn btn-block btn-green shadow white-text text-18" href="#formlienhe">Contact Us</a>
+                                <a class="btn btn-block btn-green shadow white-text text-18 text-left" href="#formlienhe">Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -195,19 +195,7 @@
 @endsection
 
 @section('addScript')
-    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
-        // $(document).ready(function () {
-        //     $('#jobsTable').DataTable({
-        //         responsive: {
-        //             details: false
-        //         }
-        //     });
-        // })
-        $('#job_type_sub, #job_type').val(null).trigger('change').select2({ placeholder : "Chuyên Ngành" });
-        $('#location_sub, #job_location').val(null).trigger('change').select2({ placeholder : "Location" });
-
         function validateSub() {
             let email = document.getElementById('email_sub');
             let jobtype = document.getElementById('job_type_sub');

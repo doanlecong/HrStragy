@@ -6,28 +6,28 @@
     {{ "HR Strategy Co., Ltd | ".$serviceSelect->name }}
 @endsection
 @section('content')
-    <div class="container-fluid position-relative">
-        <div class="image-bachground"
-             style="background-image: url('{{ asset('images/bg_client.jpg') }}');
-                     background-repeat: no-repeat;
-                     background-position: center;
-                     background-color: #04C49A;
-                     background-size: cover;
-                     background-blend-mode: multiply;
-                     position: absolute;
-                     top: 0;
-                     left: 0;
-                     right: 0;
-                     bottom: 0;"
-        >
-        </div>
-        <div class="present-text position-relative"  style="padding-top: 100px; padding-bottom: 100px;">
-            <h1 class="text-center font-playfair green-text text-shadown-black text-uppercase" style="font-size: 60px; font-weight: 900">
-                <span class="out-line-green-big">{{ $serviceSelect->name }}</span>
-            </h1>
-        </div>
-    </div>
-    <div class="container-fluid mt-2 padding-around-20 position-relative">
+    {{--<div class="container-fluid position-relative">--}}
+        {{--<div class="image-bachground"--}}
+             {{--style="background-image: url('{{ asset('images/bg_client.jpg') }}');--}}
+                     {{--background-repeat: no-repeat;--}}
+                     {{--background-position: center;--}}
+                     {{--background-color: #04C49A;--}}
+                     {{--background-size: cover;--}}
+                     {{--background-blend-mode: multiply;--}}
+                     {{--position: absolute;--}}
+                     {{--top: 0;--}}
+                     {{--left: 0;--}}
+                     {{--right: 0;--}}
+                     {{--bottom: 0;"--}}
+        {{-->--}}
+        {{--</div>--}}
+        {{--<div class="present-text position-relative"  style="padding-top: 100px; padding-bottom: 100px;">--}}
+            {{--<h1 class="text-center font-playfair white-text text-shadown-orange-thin text-uppercase" style="font-size: 40px; font-weight: 900">--}}
+                {{--{{ $serviceSelect->name }}--}}
+            {{--</h1>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    <div class="container-fluid position-relative mt-2">
         <div class="row background-white padding-bottom-40">
             <div class="col-sm-3">
                 <aside class="d-flex justify-content-start border-top-green">
@@ -35,7 +35,7 @@
                         <ul style="list-style: none" class="no-padding-left">
                             @foreach($clientServices as $service)
                                 @if($service->id != $serviceSelect->id)
-                                    <li><a href="{{ route('view_type_client_service', 'service='.encrypt($service->id)) }}" class="font-playfair text-18 green-text animate-bottom-nocontent">{{ mb_substr($service->name, 0 ,30) }}{{ strlen($service->name) > 30 ? "...":"" }}</a></li>
+                                    <li><a href="{{ route('view_type_client_service', $service->slug.".html") }}" class="font-playfair text-18 green-text animate-bottom-nocontent">{{ mb_substr($service->name, 0 ,30) }}{{ strlen($service->name) > 30 ? "...":"" }}</a></li>
                                 @endif
                             @endforeach
                         </ul>
@@ -45,10 +45,10 @@
             <div class="col-sm-9 no-padding-left">
                 <section class="border-top-green " style="width: 100%"  >
                     <div class="header green-text text-center font-playfair" style="font-size: 3rem">{{ $serviceSelect->name }}</div>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="{{ $serviceSelect->image }}" class=" box-shadown-light-dark shadow-lg w-25">
-                    </div>
-                    <h5 class="text-center font-playfair green-text text-20 mt-4">Danh Sách Bài Đăng Liên Quan</h5>
+                    {{--<div class="d-flex justify-content-center align-items-center">--}}
+                        {{--<img src="{{ $serviceSelect->image }}" class=" box-shadown-light-dark shadow-lg w-25">--}}
+                    {{--</div>--}}
+                    {{--<h5 class="text-center font-playfair green-text text-20 mt-4">Danh Sách Bài Đăng Liên Quan</h5>--}}
                     <hr>
                     <div class="row">
                         <div class="col">
@@ -68,10 +68,10 @@
                                         <div class="col-sm-9">
                                             <h5 class="font-roboto font-weight-bold blue-text mt-3">
                                                 <a class=" animate-bottom-nocontent green-text"
-                                                   href="{{ route('view_client_service','service='.$t->id) }}">{{ $t->title }}</a>
+                                                   href="{{ route('view_client_service',$t->slug.".html") }}">{{ $t->title }}</a>
                                             </h5>
-                                            <p class="font-roboto text-dark text-15">
-                                                {{ mb_substr(strip_tags($t->content), 0, 230) }}
+                                            <p class="font-roboto-light text-dark">
+                                                {{ mb_substr(strip_tags($t->description), 0, 230) }}
                                             </p>
                                         </div>
                                     </div>

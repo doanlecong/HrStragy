@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\CandidateInfo;
+use App\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware(['auth','isCandidateGuestManager']);
+        $this->middleware(['auth','isCandidateGuestManager','isJobAndRelateManager']);
     }
 
     /**
@@ -166,6 +169,13 @@ class CandidateController extends Controller
     public function delete(Request $request, $id) {
         $candidates = CandidateInfo::find($id);
         if($candidates !=null) {
+            if(!empty($candidates->job_id)) {
+                if($job = Job::find($candidates->job_id)) {
+                    $job->number_apply = ($a = $job->number_apply - 1) > 0 ? $a : 0;
+                    $job->save();
+                }
+
+            }
             $candidates->delete();
             if($request->isXmlHttpRequest()) {
                 return response()->json([
@@ -185,6 +195,59 @@ class CandidateController extends Controller
         }
         return redirect()->route('404');
     }
+
+    public function viewImage($imageName) {
+        $path = storage_path('app/public/').$imageName;
+        if(File::exists($path)) {
+            $handler = new \Symfony\Component\HttpFoundation\File\File($path);
+        } else {
+            return response('', 404);
+        }
+
+        $lifetime = 31556926; // One year in seconds
+
+        /**
+         * Prepare some header variables
+         */
+        $file_time = $handler->getMTime(); // Get the last modified time for the file (Unix timestamp)
+
+        $header_content_type = $handler->getMimeType();
+        $header_content_length = $handler->getSize();
+        $header_etag = md5($file_time . $path);
+        $header_last_modified = gmdate('r', $file_time);
+        $header_expires = gmdate('r', $file_time + $lifetime);
+
+        $headers = array(
+            'Content-Disposition' => 'inline; filename="' . $imageName. '"',
+            'Last-Modified' => $header_last_modified,
+            'Cache-Control' => 'must-revalidate',
+            'Expires' => $header_expires,
+            'Pragma' => 'public',
+            'Etag' => $header_etag
+        );
+
+        /**
+         * Is the resource cached?
+         */
+        $h1 = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $header_last_modified;
+        $h2 = isset($_SERVER['HTTP_IF_NONE_MATCH']) && str_replace('"', '', stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == $header_etag;
+
+        if ($h1 || $h2) {
+            return response('',304,$headers); // File (image) is cached by the browser, so we don't have to send it again
+        }
+
+        $headers = array_merge($headers, array(
+            'Content-Type' => $header_content_type,
+            'Content-Length' => $header_content_length
+        ));
+        return response(file_get_contents($path), 200, $headers);
+        // return Response::make(file_get_contents($path), 200, $headers);
+    }
+
+    public function downloadFile($fileName) {
+        return Storage::disk('public')->download($fileName);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -14,44 +14,46 @@
                         <p>
                             <a href="{{ route('editAboutUs') }}" class="btn btn-primary box-shadown-darkblue"><i class="fa fa-list-ol" aria-hidden="true"></i> Change Information</a>
                         </p>
-                        <div class="border-around-green padding-around-20">
+                        <div class="background-litle-white  padding-around-20">
                             @if($info != null)
-                                <h3>Tên Công Ty : {{ $info->name }}</h3>
-                                <h5>Địa chỉ : {{ $info->address }}</h5>
-                                <p>
-                                    <span>Điện thoại di động {{ $info->mobile_phone }}</span><br>
-                                    <span>Điện thoại bàn {{ $info->phone }}</span>
-                                </p>
-                                <ul class="goodlist">
-                                    <li>
-                                        <h5><i class="fa fa-facebook blue-text" style="width: 30px;"></i>Facebook : <?php if(!empty($info->facebook)) {?>  <a href="{{ $info->facebook }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->facebook }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
-                                    </li>
-                                    <li>
-                                        <h5><i class="fa fa-linkedin blue-text" style="width: 30px;"></i>LinkedIn : <?php if(!empty($info->linkedin)) {?>  <a href="{{ $info->linkedin }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->linkedin }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
-                                    </li>
-                                    <li>
-                                        <h5><i class="fa fa-skype blue-text" style="width: 30px;"></i>Skype : <?php if(!empty($info->skype)) {?>  <a href="{{ $info->skype }}" class='btn white-text btn-round background-blue box-shadown-darkblue'>{{ $info->skype }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
-                                    </li>
-                                    <li>
-                                        <h5><i class="fa fa-google-plus text-danger" style="width: 30px;"></i>Google Plus : <?php if(!empty($info->google)) {?>  <a href="{{ $info->google }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->google }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
-                                    </li>
-                                    <li>
-                                        <h5><i class="fa fa-twitter green-text" style="width: 30px;"></i>Twitter : <?php if(!empty($info->twitter)) {?>  <a href="{{ $info->twitter }}" class='btn white-text btn-round background-blue box-shadown-darkblue'>{{ $info->twitter }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
+                                <div class="background-litle-white mb-2 padding-around-20">
+                                    <h3 class="font-roboto-light green-text">Tên Công Ty : {{ $info->name }}</h3>
+                                    <h5 class="font-roboto-light">Địa chỉ : {{ $info->address }}</h5>
+                                    <p>
+                                        <span>Điện thoại di động {{ $info->mobile_phone }}</span><br>
+                                        <span>Điện thoại bàn {{ $info->phone }}</span>
+                                    </p>
+                                    <ul class="goodlist">
+                                        <li>
+                                            <h5><i class="fa fa-facebook blue-text" style="width: 30px;"></i>Facebook : <?php if(!empty($info->facebook)) {?>  <a href="{{ $info->facebook }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->facebook }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
+                                        </li>
+                                        <li>
+                                            <h5><i class="fa fa-linkedin blue-text" style="width: 30px;"></i>LinkedIn : <?php if(!empty($info->linkedin)) {?>  <a href="{{ $info->linkedin }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->linkedin }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
+                                        </li>
+                                        <li>
+                                            <h5><i class="fa fa-skype blue-text" style="width: 30px;"></i>Skype : <?php if(!empty($info->skype)) {?>  <a href="{{ $info->skype }}" class='btn white-text btn-round background-blue box-shadown-darkblue'>{{ $info->skype }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
+                                        </li>
+                                        <li>
+                                            <h5><i class="fa fa-google-plus text-danger" style="width: 30px;"></i>Google Plus : <?php if(!empty($info->google)) {?>  <a href="{{ $info->google }}" class='btn white-text  btn-round background-blue box-shadown-darkblue'>{{ $info->google }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
+                                        </li>
+                                        <li>
+                                            <h5><i class="fa fa-twitter green-text" style="width: 30px;"></i>Twitter : <?php if(!empty($info->twitter)) {?>  <a href="{{ $info->twitter }}" class='btn white-text btn-round background-blue box-shadown-darkblue'>{{ $info->twitter }}</a> <?php } else { ?> Not Set Up <?php } ?></h5>
 
-                                    </li>
-                                </ul>
-                                <h5>Slogan :</h5>
+                                        </li>
+                                    </ul>
+                                    <h5 class="green-text font-roboto-light">Slogan :</h5>
                                     {!! $info->slogan !!}
-                                <h5>Nhà Sáng Lập : </h5>
+                                    <h5 class="green-text font-roboto-light">Nhà Sáng Lập : </h5>
                                     {!! $info->owner_info !!}
-                                <p>
-                                    Email: {{ $info->email }}
-                                </p>
-                                <p>
-                                    Ngày thành lập : {{ date('Y/m/d',strtotime($info->ngay_thanh_lap)) }}
-                                </p>
-                                <h6>Nội dung hiển thị cho Trang AboutUS :</h6>
-                                <div class="border-around-green padding-around-20 shadow-lg">
+                                    <p class="green-text font-weight-bold">
+                                        Email: {{ $info->email }}
+                                    </p>
+                                    <p>
+                                        Ngày thành lập : {{ date('Y/m/d',strtotime($info->ngay_thanh_lap)) }}
+                                    </p>
+                                    <h6>Nội dung hiển thị cho Trang AboutUS :</h6>
+                                </div>
+                                <div class="padding-around-20 background-white shadow-lg">
                                     {!! $info->content !!}
                                 </div>
                             @else
@@ -76,5 +78,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

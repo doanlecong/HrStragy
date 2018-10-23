@@ -181,7 +181,8 @@
             // event.stopPropagation();
             swal({
                 title: "Bạn có thực sự muốn xóa?",
-                text: "Một khi xóa thì không thể lấy lại được đâu !!",
+                text: "Một khi xóa thì không thể lấy lại được !!" +
+                        " Hệ thống sẽ xóa các job thuộc về công ty này ?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

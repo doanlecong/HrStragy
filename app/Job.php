@@ -10,6 +10,10 @@ class Job extends Model
     //
     protected $table = "jobs";
 
+    /**
+     * Set Data For Job By Request
+     * @return void
+     * **/
     public function setData(Request $request) {
         $this->job_name = $request->name;
         $this->job_type_id = $request->job_type_id;
@@ -24,6 +28,8 @@ class Job extends Model
         $this->salary = $request->salary;
         $this->description = Purifier::clean($request->description);
         $this->content = $request->contentInfo;
+        $this->sex = $request->sex ?? 0;
+        $this->age = $request->age;
     }
 
     public static function checkSlug($slug = null, $id = null) {
@@ -68,6 +74,16 @@ class Job extends Model
             $arr[] = $level->id;
         }
         return $arr;
+    }
+
+    public static function increaseApplyNumber($jobID) {
+        $job = Job::find(intval($jobID));
+        if($job) {
+            $job->number_apply = $job->number_apply + 1;
+            $job->save();
+            return true;
+        }
+        return false;
     }
 
     public static function findRelateBig($jobType, $id) {
@@ -131,5 +147,9 @@ class Job extends Model
 
     public function company() {
         return $this->belongsTo('App\Company', 'company_id');
+    }
+
+    public function candidates(){
+        return $this->hasMany('App\CandidateInfo', 'job_id');
     }
 }

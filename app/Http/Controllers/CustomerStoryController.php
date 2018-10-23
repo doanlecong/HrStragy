@@ -57,6 +57,12 @@ class CustomerStoryController extends Controller
 
         $cusStory = new CustomerStory();
         $cusStory = CustomerStory::setData($cusStory, $request);
+        $slug = str_slug($request->title, '-');
+        $canUseSlug = CustomerStory::checkSlug($slug, null);
+        if(!$canUseSlug) {
+            $slug = $slug.rand(1000,9999);
+        }
+        $cusStory->slug = $slug;
         $cusStory->save();
         return redirect()->route('customer_story.index');
     }
@@ -149,6 +155,13 @@ class CustomerStoryController extends Controller
                 'contentInfo' => 'required'
             ]);
             $cusStory = CustomerStory::setData($cusStory, $request);
+            if($request->title != $cusStory->title) {
+                $slug = str_slug($request->title, '-');
+                if(!CustomerStory::checkSlug($slug, $cusStory->id)) {
+                    $slug = $slug.rand(1000, 9999);
+                }
+                $cusStory->slug = $slug;
+            }
             $cusStory->save();
             return redirect()->route('customer_story.index');
         }

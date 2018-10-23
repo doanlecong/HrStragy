@@ -112,8 +112,8 @@ class JobLevelController extends Controller
     {
         $jobLevel = JobLevel::find($id);
         if(!empty($jobLevel)) {
-            $jobLevel = $jobLevel->jobType;
-            return view('layouts.admin.job_and_relate.job_level.edit')->with('jobLevel', $jobLevel)->with('jobtype', $jobLevel);
+            $jobType = $jobLevel->jobType;
+            return view('layouts.admin.job_and_relate.job_level.edit')->with('jobLevel', $jobLevel)->with('jobtype', $jobType);
         }
     }
 

@@ -17,21 +17,21 @@
         <div class="col">
             <h5 class="green-text">Thông tin :</h5>
             <p class="border-around-dash-green-m padding-around-20">
-                {{ strip_tags($candidate->expected_salary) }}
+                {{ strip_tags($candidate->gioithieu) }}
             </p>
 
             @if(!empty($candidate->file))
                 @if(in_array($candidate->file_type, config('global.image_types')))
                     <div class="text-center">
                         <h5>Hình ảnh ứng viên gửi :</h5>
-                        <img class="w-50 border-around-dash-green" src="{{ asset('storage/'.$candidate->file)  }}">
+                        <img class="w-50 border-around-dash-green" src="{{ route('candidate.viewImage', $candidate->file)  }}">
                     </div>
                 @else
 
                     <h5 class="font-roboto-light text-20 green-text">File ứng viên gửi : </h5>
                     <div class="text-danger border-around-dash-green-m padding-around-20">
                         <p class="font-roboto-light text-18">Kiểu File: {{ $candidate->file_type }}</p>
-                        <a class=" btn text-18 white-text box-shadown-light-dark background-gradient-purple btn-round pl-3 pr-3 " href="{{asset('storage/'.$candidate->file)}}" target="_blank">{{ strip_tags($candidate->file) }}</a>
+                        <a class=" btn text-18 white-text box-shadown-light-dark background-gradient-purple btn-round pl-3 pr-3 " href="{{ route('candidate.downloadFile', $candidate->file) }}" target="_blank">{{ strip_tags($candidate->file) }}</a>
                     </div>
                 @endif
             @endif

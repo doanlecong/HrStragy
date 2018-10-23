@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light background-gradient-purple text-light top-nav-admin sticky-top">
-    <span style="font-size:30px;cursor:pointer"  class="button-menu-side" onclick="toggleNav()">&#9776;</span>
+    <span style="font-size:30px;cursor:pointer"  class="button-menu-side" onclick="toggleNav(event)">&#9776;</span>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

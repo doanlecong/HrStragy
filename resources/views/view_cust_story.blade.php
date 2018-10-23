@@ -6,7 +6,7 @@
     {{ "HR Strategy Co., Ltd | ".$story->title }}
 @endsection
 @section('content')
-    <div class="container-fluid position-relative">
+    <div class="container-fluid position-relative" hidden>
         <div class="image-bachground"
              style="background-image: url('{{ asset('images/exercise.png') }}');
                      background-repeat: no-repeat;
@@ -23,12 +23,12 @@
         >
         </div>
         <div class="present-text position-relative"  style="padding-top: 100px; padding-bottom: 100px;">
-            <h1 class="text-center font-playfair white-text text-shadown-black text-uppercase" style="font-size: 40px; font-weight: 900">
-                <span class="out-line-green-big">{{ $story->title }}</span>
+            <h1 class="text-center font-playfair white-text text-shadown-orange-thin text-uppercase" style="font-size: 40px; font-weight: 900">
+                {{ $story->title }}
             </h1>
         </div>
     </div>
-    <div class="container-fluid mt-2  position-relative">
+    <div class="container-fluid mt-2 position-relative">
         <div class="row background-white padding-bottom-40">
             <div class="col-sm-3">
                 <div class="shade-green"></div>
@@ -39,7 +39,7 @@
                         <ul style="list-style: none" class="no-padding-left">
                             @foreach($storyList as $st)
                                 @if($st['id'] != $story->id)
-                                    <li><a href="{{ route('viewCustomerStory', 'story='.$st['id']) }}" class="font-playfair text-18 green-text animate-bottom-nocontent">{{ mb_substr($st['title'], 0 ,30) }}{{ strlen($st['title']) > 30 ? "...":"" }}</a></li>
+                                    <li><a href="{{ route('viewCustomerStory', $st['slug'].".html") }}" class="font-playfair text-18 green-text animate-bottom-nocontent">{{ mb_substr($st['title'], 0 ,30) }}{{ strlen($st['title']) > 30 ? "...":"" }}</a></li>
                                 @endif
                             @endforeach
                         </ul>
@@ -55,12 +55,12 @@
                         <img src="{{ $story->image_thumb }}" class=" box-shadown-light-dark shadow-lg w-75">
                     </div>
                     <hr>
-                    {{--<h3 class="font-playfair text-center green-text">--}}
-                    {{--{{ strip_tags($serviceSelect->description) }}--}}
-                    {{--</h3>--}}
                     <p class="text-right font-weight-bold green-text">
                         {{ date('d/m/Y', strtotime($story->created_at)) }}
                     </p>
+                    <div class="text-right">
+                        <div class="fb-like text-right" data-href="{{ request()->url() }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+                    </div>
                     <h5 class="text-center font-playfair green-text text-20">Nội dung</h5>
                     <hr>
                     <div class="content-service">
@@ -73,34 +73,29 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="clip-path"></div>
-                        <h3 class="green-text font-playfair ml-3 mt-3"><i class="fa fa-commenting" aria-hidden="true"></i> Send Feedback</h3>
-                        <form action="">
-                            <div class="form-group">
-                                <div class="row mt-3">
-                                    <div class="col-sm-6">
-                                        <label for="">Full Name (*): </label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="">Email (*):</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+                        <div class=" ml-auto mr-auto" style="max-width: 1000px;">
+                            <h3 class="green-text text-center font-playfair ml-3 mt-3"><i class="fa fa-commenting" aria-hidden="true"></i> Send Feedback</h3>
+                            <div id="disqus_thread"></div>
+                            <script>
 
-                                    <div class="col-sm-12">
-                                        <label for="">Message (*):</label>
-                                        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="text-right mt-3">
-                                            <button class="btn btn-green box-shadown-superdark-green text-20 padding-around-20 text-right" type="submit"><i class="fa fa-paper-plane mr-2" aria-hidden="true"></i> SEND</button>
-                                        </div>
+                                /**
+                                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
-                                    </div>
-                                </div>
-                            </div>
+                                var disqus_config = function () {
+                                    this.page.url = "{{ request()->url() }}";;  // Replace PAGE_URL with your page's canonical URL variable
+                                    this.page.identifier = "customer_story{{ $story->created_at.".html" }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                };
 
-                        </form>
+                                (function() { // DON'T EDIT BELOW THIS LINE
+                                    var d = document, s = d.createElement('script');
+                                    s.src = 'https://hrstategy.disqus.com/embed.js';
+                                    s.setAttribute('data-timestamp', +new Date());
+                                    (d.head || d.body).appendChild(s);
+                                })();
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                        </div>
                     </div>
                 </div>
             </div>
