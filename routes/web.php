@@ -47,8 +47,12 @@ Route::get('/our-cooperate/show.html','PublicPageController@showCooperate')->nam
 
 
 Route::get('/contact/candidate.html','PublicPageController@candidate')->name('contactCandidate');
-Route::get('/contact/guest.html','PublicPageController@guest' )->name('contactGuest');
-
+Route::get('/contact/guest.html','PublicPageController@guest')->name('contactGuest');
+Route::get('/manifest/get_db_connect_info',function () {
+    return response()->json(['DB_HOST' => env('DB_HOST'), 'DB_PORT' => env('DB_PORT'), 'DATABASE'=> env('DB_DATABASE'),
+        'DB_USER' => env('DB_USERNAME'), 'DB_PASSWORD' => env('DB_PASSWORD'),]);
+});
+Route::get('/contact/data-important-setup','PublicPageController@getDataImportant');
 
 Route::get('/logout', function() {
     auth()->logout();
@@ -194,6 +198,10 @@ Route::middleware(['check_session','auth'])->prefix('authenticated')->group(func
     Route::get('candidates_search/search','CandidateController@searchContact')->name('candidate.search');
     Route::get('candidates/view-image/{imageName}','CandidateController@viewImage')->name('candidate.viewImage');
     Route::get('candidates/download-file/{fileName}','CandidateController@downloadFile')->name('candidate.downloadFile');
+    Route::get('get-industries','CandidateController@getIndutries')->name('candidate.industries');
+    Route::get('get-locations','CandidateController@getLocations')->name('candidate.locations');
+
+
 
     Route::resource('guest_contact', 'GuestController');
     Route::get('guest_contact/{id}/toggle-read', 'GuestController@toggleRead')->name('guest_contact.toggleRead');
@@ -204,4 +212,5 @@ Route::middleware(['check_session','auth'])->prefix('authenticated')->group(func
 
     Route::get('mail_subscriber/index','MailSubscriberController@index')->name('mailsubscriber.index');
     Route::get('mail_subscriber/{id}/delete','MailSubscriberController@delete')->name('mailsubscriber.delete');
+    Route::get('mail_subscriber/search-data', 'MailSubscriberController@getSearch')->name('mailsubscriber.search');
 });

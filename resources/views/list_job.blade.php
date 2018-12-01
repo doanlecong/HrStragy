@@ -15,7 +15,7 @@
                     <a class=" animate-bottom-nocontent green-text"
                        href="{{ route('jobsearch.viewJob', $job->slug.".html") }}">{{ $job->job_name }}</a>
                 </h5>
-                <div style="font-size: 13px;">Industry : <span class="badge background-green white-text text-15">{{ $job->jobType->abbr }}</span></div>
+                <div style="font-size: 13px;">Industry : <span class="badge background-green white-text text-15">{{ @$job->jobType->abbr ?? '' }}</span></div>
                 <div class="font-roboto-light text-dark" style="font-size: 13px">
                     {{ mb_substr(strip_tags($job->description), 0, 200) }}{{ strlen(strip_tags($job->description)) > 200 ? "...":"" }}
                 </div>

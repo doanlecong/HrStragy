@@ -14,7 +14,20 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favico.ico') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favico.ico') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-105327923-1', 'auto');
+        ga('send', 'pageview');
+        window.onload = function () {
+            ga(function (tracker) {
+                console.log(tracker);
+            });
+        }
+    </script>
     <title>
         @yield('title')
     </title>
@@ -45,7 +58,6 @@
 @endif
 
 <nav class="navbar navbar-expand-md navbar-primary navbar-laravel navbar-under-top sticky-top" id="navbar-under-top">
-
     <div class="container no-padding-left-right">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="img-fluid logo-full-size" src="{{ asset('images/Logo.png')}}">

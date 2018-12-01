@@ -46,4 +46,19 @@ class MailSubscriberController extends Controller
         }
         return redirect()->route('404');
     }
+
+    public function getSearch(Request $request) {
+        $arrSearch = [
+            'email' => $request->input('email',null),
+            'location' => $request->input('location', null),
+            'industry' => $request->input('industry', null),
+        ];
+        $data = MailSubcriber::getData($arrSearch);
+        return response(
+            view('layouts.admin.mail_subscriber.table', ['sub' => $data, 'count' => count($data), 'arrSearch' => $arrSearch]),
+            200,
+            ['Content-Type', 'application/json']
+        );
+    }
+
 }

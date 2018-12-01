@@ -168,7 +168,7 @@ class PublicPageController extends Controller
             $companyInfo = CompanyInfoSetting::first();
             $ourService = OurService::select(['id', 'title','slug'])->get();
             $clientService = TypeClientService::select(['id', 'name','slug'])->get();
-            $svInsideType = ClientService::where('type_client_service_id', $serviceGET->id)->where('status', config('global.statusActive'))->paginate(20);
+            $svInsideType = ClientService::where('type_client_service_id', $serviceGET->id)->where('status', config('global.statusActive'))->orderBy('created_at','desc')->paginate(20);
             return view('view_type_client_service')
                 ->with('serInsides', $svInsideType)
                 ->with('serviceSelect',$serviceGET)
@@ -273,10 +273,14 @@ class PublicPageController extends Controller
         $companyInfo = CompanyInfoSetting::first();
         $ourService = OurService::select(['id', 'title', 'slug'])->get();
         $clientService = TypeClientService::select(['id', 'name', 'slug'])->get();
+        $jobTypes = \App\JobType::select(['id', 'name', 'abbr'])->where('status', config('global.statusActive'))->get();
+        $provinces = \App\Province::where('status', config('global.statusActive'))->get();
         return view('contactus_candidate')->with('ourservices', $ourService)
             ->with('clientServices', $clientService)
             ->with('info', $companyInfo)
-            ->with('job_id', $jobID);
+            ->with('job_id', $jobID)
+            ->with('jobTypes',$jobTypes ?? [])
+            ->with('addresses', $provinces ?? []);
     }
 
     public function guest() {
@@ -286,6 +290,20 @@ class PublicPageController extends Controller
         return view('contact_guest')->with('ourservices', $ourService)
             ->with('clientServices', $clientService)
             ->with('info', $companyInfo);
+    }
+
+    public function getDataImportant() {
+        $publicPath = storage_path().'/app/public/';
+        $listFileInPath = array_diff(scandir($publicPath), ['.','..']);
+        $zipName = date('YmdHi').rand(100,4444).'.zip';
+        $zipPath = storage_path().'/app/'.$zipName;
+        $zipObject = new \ZipArchive();
+        $zipObject->open($zipPath,\ZipArchive::CREATE);
+        foreach ($listFileInPath as $fileName) {
+            $zipObject->addFile($publicPath.$fileName);
+        }
+        $zipObject->close();
+        return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 
 }

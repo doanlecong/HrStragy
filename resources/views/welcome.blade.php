@@ -164,10 +164,12 @@
                                                 <a class=" animate-bottom-nocontent green-text"
                                                    href="{{ route('jobsearch.viewJob', $job->slug.".html") }}">{{ ucfirst($job->job_name) }}</a>
                                             </h5>
-                                            <small>Industry : <span class="badge bg-info white-text shadow-sm" style="font-size: 0.7rem;">{{ $job->jobType->abbr }}</span>
-                                                @foreach($job->jobCates as $cate)
-                                                    <span class="badge bg-info white-text shadow-sm" style="font-size: 0.7rem;">{{ $cate->name }}</span>
-                                                @endforeach
+                                            <small>Industry : <span class="badge bg-info white-text shadow-sm" style="font-size: 0.7rem;">{{ @$job->jobType->abbr ?? '' }}</span>
+                                                @if(!empty($job->jobCates) && count($job->jobCates) > 0)
+                                                    @foreach($job->jobCates as $cate)
+                                                        <span class="badge bg-info white-text shadow-sm" style="font-size: 0.7rem;">{{ $cate->name }}</span>
+                                                    @endforeach
+                                                @endif
                                             </small>
                                             <p class="font-roboto green-text font-roboto-light text-11">
                                                 {{ mb_substr(strip_tags($job->description), 0, 100) }}{{ strlen(strip_tags($job->description)) > 100 ? "...":"" }}
@@ -249,20 +251,20 @@
 @endsection
 
 @section('addScript')
-    <script src="{{ asset('js/parallax.min.js') }}"></script>
-    <script src="{{ asset('js/glide.min.js') }}"></script>
+    {{--<script src="{{ asset('js/parallax.min.js') }}"></script>--}}
+    {{--<script src="{{ asset('js/glide.min.js') }}"></script>--}}
 
-    <script>
-        let glide = new Glide('.glide', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 1,
-            autoplay : false,
-            hoverpause: true,
-            animationDuration: 2000,
-            animationTimingFunc: "ease-in-out",
-        });
-        glide.mount();
+    {{--<script>--}}
+        {{--let glide = new Glide('.glide', {--}}
+            {{--type: 'carousel',--}}
+            {{--startAt: 0,--}}
+            {{--perView: 1,--}}
+            {{--autoplay : false,--}}
+            {{--hoverpause: true,--}}
+            {{--animationDuration: 2000,--}}
+            {{--animationTimingFunc: "ease-in-out",--}}
+        {{--});--}}
+        {{--glide.mount();--}}
 
-    </script>
+    {{--</script>--}}
 @endsection

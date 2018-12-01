@@ -9,15 +9,30 @@
             <div class="card-body no-padding-left-right background-blue no-padding-top">
                 <div class="row background-white padding-top-30 border-top-green">
                     <div class="col">
-                        <label for="basic-url"><i class="fa fa-flag-o fa-2x mr-2 green-text "></i>Search Contact Base On Phone or Name or Email (<small>***</small>)</label>
+                        <label for="basic-url"><i class="fa fa-flag-o fa-2x mr-2 green-text "></i>Search (<small>***</small>)</label>
                         <div class="row">
-                            <div class="col-sm-6 no-padding-left">
-                                <div class="input-group mb-3">
-                                    <input type="text" id="name-company" class="form-control" placeholder="Contact's Phone or Title or Email" aria-label="Contact's Name or Title " aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2"><button class="background-green btn btn-block box-shadown-light-dark btn-search"><i class="fa fa-search"></i></button></span>
-                                    </div>
-                                </div>
+                            <div class="col-sm-2 form-group ">
+                                <input type="text" class="form-control" name="name_contact" id="name_contact" placeholder="Name">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <input type="text" class="form-control" name="email_contact" id="email_contact" placeholder="Email">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <input type="text" name="phone_contact" id="phone_contact" class="form-control" placeholder="Phone">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <select name="location_contact" id="location_contact" class="form-control">
+                                    <option value="">All Location</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <select name="industry_contact" id="industry_contact" class="form-control">
+                                    <option value="">All Industry</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1 form-group no-padding-left-right">
+                                <button class="btn btn-primary btn-group mr-1 mt-1" id="btn-search"><i class="fa fa-search"></i></button>
+                                <button class="btn btn-warning btn-group mr-1 mt-1" id="btn-clear"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
 
@@ -109,6 +124,45 @@
 @section('scriptTail')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        let industriesUrl = '{{ route('candidate.industries') }}';
+        let locationUrl   = '{{ route('candidate.locations') }}';
+        $(document).ready(function() {
+            let locationSelect = $('#location_contact');
+            let industrySelect = $('#industry_contact');
+            $.ajax({
+                url: locationUrl,
+                type: "GET",
+                success:function(response) {
+                   if(response.success === true && response.data.length > 0) {
+                       let data = response.data;
+                       data.forEach((item) => {
+                           let option = '<option value="'+item.name+' - '+item.country_name+'">'+item.name+ ' - '+item.country_name+'</option>';
+                           locationSelect.append(option);
+                       });
+                   }
+                }, error:function (e) {
+                    @include('layouts.assessories.handle_error_ajax')
+                }
+            });
+            $.ajax({
+                url: industriesUrl,
+                type: "GET",
+                success:function(response) {
+                    if(response.success === true && response.data.length > 0) {
+                        let data = response.data;
+                        data.forEach(item => {
+                            let option = '<option value="'+item.name+'">'+item.abbr+' - '+item.name +'</option>';
+                            industrySelect.append(option);
+                        });
+                    }
+                }, error:function (e) {
+                    @include('layouts.assessories.handle_error_ajax')
+                }
+            });
+        })
+
+    </script>
+    <script>
         function getJsonPaginate(url = "", e) {
             var data = "";
             var settings = {
@@ -135,15 +189,14 @@
         }
         $(document).on('click', '.pagination .page-item a', function (e) {
             let currentUrl = $(this).attr('href');
-            let nameSearch = $("#name-company").val();
-            let isHasName = false;
-            if(nameSearch !== ""){
-                currentUrl += '&name='+nameSearch;
-                isHasName = true;
-            }
-            if(isChangeStatus) {
-                currentUrl += "&status="+currentStatus;
-            }
+            // let isHasName = false;
+            // if(nameSearch !== ""){
+            //     currentUrl += '&name='+nameSearch;
+            //     isHasName = true;
+            // }
+            // if(isChangeStatus) {
+            //     currentUrl += "&status="+currentStatus;
+            // }
             getJsonPaginate(currentUrl, e);
             e.preventDefault();
         });
@@ -395,71 +448,68 @@
     <script>
         let previousName = "";
         let findData = debounce(function () {
-            let name = $('#name-company').val();
-            if(previousName != name) {
-                previousName = name;
-                $("#modalShowLoading").modal({
-                    show: true,
-                    keyboard : false
-                });
-                let currentUrl = '{{ route('candidate.search') }}';
-                let isHasName = false;
-                if(name !== ""){
-                    currentUrl += '?name='+name;
-                    isHasName = true;
-                }
-                if(isChangeStatus) {
-                    if(isHasName) {
-                        currentUrl += "&status="+currentStatus;
-                    } else  {
-                        currentUrl += '?status='+currentStatus;
-                    }
-                }
-                $.ajax({
-                    url: currentUrl,
-                    crossDomain: true,
-                    async: true,
-                    type:"GET",
-                    success:function (data) {
-                        $("#modalShowLoading").modal('hide');
-                        $('#name-company').focus();
-                        $('#contentTable').html(data);
-                        if(isChangeStatus) {
-                            let button = $('.filterStatusData');
-                            if(currentStatus == 'Y') {
-                                button.html('{{config('global.readY')}}');
-                            } else if(currentStatus == 'N') {
-                                button.html('{{ config('global.readN') }}');
-                            }
-                        }
-                    },
-                    error:function (e) {
-                        $("#modalShowLoading").modal('hide');
-                        if(e.status == 401) {
-                            swal({
-                                title: "Opp !",
-                                text: "Your session has been expired . We will redirect you to login page in 3 seconds",
-                                icon: "error",
-                                button: "Đóng thôi !",
-                            });
-                            setTimeout(function () {
-                                location.reload();
-                            }, 3000);
-                        } else {
-                            swal({
-                                title: "Opp !",
-                                text: 'Code : ' + e.status + ' - ' + e.responseJSON.message,
-                                icon: "error",
-                                button: "Đóng thôi !",
-                            });
-                        }
+            let name = $('#name_contact').val();
+            let email = $('#email_contact').val();
+            let phone = $('#phone_contact').val();
+            let location = $('#location_contact').val();
+            let industry = $('#industry_contact').val();
+            $("#modalShowLoading").modal({
+                show: true,
+                keyboard : false
+            });
+            let currentUrl = '{{ route('candidate.search') }}';
+            currentUrl += '?name='+name;
+            //currentUrl += "&status="+currentStatus;
+            currentUrl += '&phone='+ phone;
+            currentUrl += '&email='+ email;
+            currentUrl += '&location='+location;
+            currentUrl += '&industry='+industry;
 
+            $.ajax({
+                url: currentUrl,
+                crossDomain: true,
+                async: true,
+                type:"GET",
+                success:function (data) {
+                    // console.log(data);
+                    $("#modalShowLoading").modal('hide');
+                    $('#contentTable').html(data);
+                    {{--if(isChangeStatus) {--}}
+                        {{--let button = $('.filterStatusData');--}}
+                        {{--if(currentStatus == 'Y') {--}}
+                            {{--button.html('{{config('global.readY')}}');--}}
+                        {{--} else if(currentStatus == 'N') {--}}
+                            {{--button.html('{{ config('global.readN') }}');--}}
+                        {{--}--}}
+                    {{--}--}}
+                },
+                error:function (e) {
+                    $("#modalShowLoading").modal('hide');
+                    if(e.status == 401) {
+                        swal({
+                            title: "Opp !",
+                            text: "Your session has been expired . We will redirect you to login page in 3 seconds",
+                            icon: "error",
+                            button: "Đóng thôi !",
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                    } else {
+                        swal({
+                            title: "Opp !",
+                            text: 'Code : ' + e.status + ' - ' + e.responseJSON.message,
+                            icon: "error",
+                            button: "Đóng thôi !",
+                        });
                     }
-                })
-            }
+
+                }
+            })
+
 
         }, 300);
-        $(document).on('click', '.btn-search', function() {
+        $(document).on('click', '#btn-search', function() {
             return findData();
         });
         $(document).on('keypress', '#name-company', function (e) {

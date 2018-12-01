@@ -22,16 +22,20 @@
                             </div>
                             <div class="col-sm-12 col-md-4 no-padding-left">
                                 <select name="" id="job_type" class="form-control" multiple>
-                                    @foreach($jobTypes as $jobType)
-                                        <option value="{{ $jobType->id}}">{{ $jobType->abbr." - ".$jobType->name }}</option>
-                                    @endforeach
+                                    @if(!empty($jobTypes) && count($jobTypes) > 0)
+                                        @foreach($jobTypes as $jobType)
+                                            <option value="{{ $jobType->id}}">{{ $jobType->abbr." - ".$jobType->name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-3 no-padding-right">
                                 <select name="`" id="job_location" class="form-control" multiple>
-                                    @foreach($provinces as $province)
-                                        <option value="{{ $province->id }}">{{ $province->name." - ".$province->country->name }}</option>
-                                    @endforeach
+                                    @if(!empty($provinces) && count($provinces) > 0)
+                                        @foreach($provinces as $province)
+                                            <option value="{{ $province->id }}">{{ $province->name." - ".(@$province->country->name ?? '') }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="col-sm-1">
@@ -63,7 +67,7 @@
                                         <a class=" animate-bottom-nocontent green-text"
                                            href="{{ route('jobsearch.viewJob', $job->slug.".html") }}">{{ $job->job_name }}</a>
                                     </h5>
-                                    <div style="font-size: 13px;">Industry : <span class="badge background-green white-text text-15">{{ $job->jobType->abbr }}</span></div>
+                                    <div style="font-size: 13px;">Industry : <span class="badge background-green white-text text-15">{{ @$job->jobType->abbr ?? '' }}</span></div>
                                     <div class="font-roboto-light text-dark text-justify " style="font-size: 13px;">
                                         {{ mb_substr(strip_tags($job->description), 0, 200) }}{{ strlen(strip_tags($job->description)) > 200 ? "...":"" }}
                                     </div>
@@ -100,16 +104,20 @@
                                         </div>
                                         <div class="form-group">
                                             <select name="" id="job_type_sub" class="form-control" required>
-                                                @foreach($jobTypes as $jobType)
-                                                    <option value="{{ $jobType->id}}">{{ $jobType->abbr." - ".$jobType->name }}</option>
-                                                @endforeach
+                                                @if(!empty($jobTypes) && count($jobTypes) > 0)
+                                                    @foreach($jobTypes as $jobType)
+                                                        <option value="{{ $jobType->id}}">{{ $jobType->abbr." - ".$jobType->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <select name="" id="location_sub" class="form-control" required>
-                                                @foreach($provinces as $province)
-                                                    <option value="{{ $province->id}}">{{ $province->name." - ".$province->country->name }}</option>
-                                                @endforeach
+                                                @if(!empty($provinces) && count($provinces) > 0)
+                                                    @foreach($provinces as $province)
+                                                        <option value="{{ $province->id}}">{{ $province->name." - ".(@$province->country->name ?? '') }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="form-group text-center mt-3">

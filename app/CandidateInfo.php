@@ -29,4 +29,29 @@ class CandidateInfo extends Model
         }
         return $contactUs;
     }
+
+    public static function getData($arrSearch) {
+        $query = (new CandidateInfo)->newQuery();
+        if(isset($arrSearch['name']) && !empty($arrSearch['name'])) {
+            $query = $query->where('name','LIKE','%'.$arrSearch['name'].'%');
+        }
+
+        if(isset($arrSearch['phone']) && !empty($arrSearch['phone'])) {
+            $query = $query->where('phone', 'LIKE',$arrSearch['phone'].'%');
+        }
+        if(isset($arrSearch['email']) && !empty($arrSearch['email'])) {
+            $query = $query->where('email','LIKE',$arrSearch['email'].'%');
+        }
+
+        if (isset($arrSearch['location']) && !empty($arrSearch['location'])) {
+            $query = $query->where('address','=', $arrSearch['location']);
+        }
+
+        if(isset($arrSearch['industry']) && !empty($arrSearch['industry'])) {
+            $query = $query->where('industry', '=',$arrSearch['industry']);
+        }
+        $query = $query->orderBy('created_at','desc');
+        $data = $query->paginate(20);
+        return $data;
+    }
 }

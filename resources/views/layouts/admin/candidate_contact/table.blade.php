@@ -56,4 +56,8 @@
     @endif
     </tbody>
 </table>
-{{ $candidates->links() }}
+@if(!empty($arrSearch))
+    {{ $candidates->appends($arrSearch)->links() }}
+@else
+    {{ $candidates->links() }}
+@endif

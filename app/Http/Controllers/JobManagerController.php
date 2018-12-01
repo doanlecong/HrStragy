@@ -167,10 +167,10 @@ class JobManagerController extends Controller
             $dataSpan = "";
             if($job->status == config('global.statusActive')) {
                 $job->status = config('global.statusDisable');
-                $dataSpan = "<span style='cursor: pointer;' title='Click to show or hide this in customer page' data-id='".$job->id."' data-href='".route('company_job.toggleShow', $job->id)."' class='badge badge-danger white-text toogle-show box-shadown-light-dark'>". config('global.'.$job->status)."</span>";
+                $dataSpan = "<span style='cursor: pointer;' title='Click to show or hide this in customer page' data-id='".$job->id."' data-href='".route('job.toggleShow', $job->id)."' class='badge badge-danger white-text toogle-show box-shadown-light-dark'>". config('global.'.$job->status)."</span>";
             } else if ($job->status == config('global.statusDisable')){
                 $job->status = config('global.statusActive');
-                $dataSpan = "<span style='cursor: pointer;' title='Click to show or hide this in customer page' data-id='".$job->id."' data-href='".route('company_job.toggleShow', $job->id)."' class='badge background-green white-text toogle-show box-shadown-light-dark'>". config('global.'.$job->status)."</span>";
+                $dataSpan = "<span style='cursor: pointer;' title='Click to show or hide this in customer page' data-id='".$job->id."' data-href='".route('job.toggleShow', $job->id)."' class='badge background-green white-text toogle-show box-shadown-light-dark'>". config('global.'.$job->status)."</span>";
             }
             $job->save();
         }
@@ -209,8 +209,8 @@ class JobManagerController extends Controller
         if($job) {
             $companies = Company::select(['id','name'])->where('status', config('global.statusActive'))->get();
             $jobType = JobType::where('status', config('global.statusActive'))->get();
-            $relateJoBCate = $job->jobType->jobCates()->select(['id', 'name'])->get();
-            $relateJobLevel = $job->jobType->jobLevels()->select(['id', 'abbrie', 'name'])->get();
+            $relateJoBCate = $job->jobType->jobCates()->select(['id', 'name'])->get() ?? [];
+            $relateJobLevel = $job->jobType->jobLevels()->select(['id', 'abbrie', 'name'])->get() ?? [];
             $countries = Country::orderBy('code','asc')->get();
             $provinces = null;
             $districts = null;

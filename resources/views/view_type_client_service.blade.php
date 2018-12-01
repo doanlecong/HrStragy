@@ -75,8 +75,8 @@
                                             </p>
                                         </div>
                                     </div>
-                                    {{ $serInsides->appends(request()->query())->links() }}
                                 @endforeach
+                                {{ $serInsides->appends(request()->query())->links() }}
                             @else
                                 <h4 class="text-center font-playfair green-text">No Data For This Thing</h4>
                             @endif

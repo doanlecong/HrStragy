@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\CandidateInfo;
 use App\Job;
+use App\JobType;
+use App\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
@@ -104,29 +107,43 @@ class CandidateController extends Controller
     }
 
     public function searchContact(Request $request){
-        $candidates = null;
-        $name = null;
-        $status = null;
-        if($request->has('name') && !empty($request->name)){
-            $name = $request->name;
-            $name = htmlspecialchars($name);
-        }
-        if($request->has('status') && !empty($request->status)) {
-            $status = $request->status;
-            $status = htmlspecialchars($status);
-        }
-        $candidates = CandidateInfo::searchContact($name, $status);
-        if(!empty($candidates)) {
-            $candidates = $candidates->orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $candidates = CandidateInfo::orderBy('created_at', 'desc')->paginate(20);
-        }
+        Log::info($request->all());
+//        return response()->json([
+//            'success' => true,
+//            'data'    => [],
+//        ]);
+        $arrSearch = [
+            'name' => $request->input('name' , null),
+            'phone' => $request->input('phone', null),
+            'email' => $request->input('email',null),
+            'location' => $request->input('location', null),
+            'industry' => $request->input('industry', null),
+        ];
+        $data = CandidateInfo::getData($arrSearch);
         return response(
-            view('layouts.admin.candidate_contact.table', ['candidates' => $candidates, 'count' => count($candidates)]),
+            view('layouts.admin.candidate_contact.table', ['candidates' => $data, 'count' => count($data), 'arrSearch' => $arrSearch]),
             200,
             ['Content-Type', 'application/json']
         );
     }
+
+    public function getIndutries() {
+        $data = JobType::select(['id', 'abbr','name'])->get();
+        return response()->json([
+            'success' => true,
+            'data'    => (count($data)) ? $data->toArray() : [],
+        ]);
+    }
+
+    public function getLocations() {
+        $data = Province::leftJoin('countries', 'provinces.country_id', '=', 'countries.id')
+            ->select(['provinces.id','provinces.name', 'countries.name as country_name'])->get();
+        return response()->json([
+            'success' =>  true,
+            'data'    => count($data) ? $data->toArray() : [],
+        ]);
+    }
+
 
     public function viewInstant($id) {
         $candidates = CandidateInfo::find($id);

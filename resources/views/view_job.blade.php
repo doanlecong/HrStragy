@@ -57,9 +57,11 @@
                                    <tr>
                                        <th style="padding: 0.5rem">Job Categories</th>
                                        <td >
-                                           @foreach($job->jobCates as $cate)
-                                               <span style="font-size: 1rem;" title="{{ $cate->name }}" class="badge bg-info white-text box-shadown-light-dark">{{ $cate->name }}</span>
-                                           @endforeach
+                                           @if(!empty($job->jobCates) && count($job->jobCates) > 0)
+                                               @foreach($job->jobCates as $cate)
+                                                   <span style="font-size: 1rem;" title="{{ $cate->name }}" class="badge bg-info white-text box-shadown-light-dark">{{ $cate->name }}</span>
+                                               @endforeach
+                                           @endif
                                        </td>
                                    </tr>
                                    <tr>
@@ -85,9 +87,11 @@
                                    <tr>
                                        <th style="padding: 0.5rem;">Job Level</th>
                                        <td >
-                                           @foreach($job->jobLevels as $level)
-                                               <span style="font-size: 1rem;" title="{{ $level->name }}" class="badge bg-info white-text box-shadown-light-dark">{{$level->abbrie}}</span>
-                                           @endforeach
+                                           @if(!empty($job->jobLevels) && count($job->jobLevels) > 0)
+                                               @foreach($job->jobLevels as $level)
+                                                   <span style="font-size: 1rem;" title="{{ $level->name }}" class="badge bg-info white-text box-shadown-light-dark">{{$level->abbrie}}</span>
+                                               @endforeach
+                                           @endif
                                        </td>
                                    </tr>
                                    <tr>
@@ -148,20 +152,45 @@
                         <div class=" ml-auto mr-auto" style="max-width: 1000px;">
                             <h3 class="green-text text-center font-playfair ml-3 mt-3"><i class="fa fa-commenting" aria-hidden="true"></i> Send Feedback</h3>
                             <div id="disqus_thread"></div>
+                            {{--<script>--}}
+
+                                {{--/**--}}
+                                 {{--*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.--}}
+                                 {{--*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/--}}
+
+                                {{--var disqus_config = function () {--}}
+                                    {{--this.page.url = "{{ request()->url() }}";  // Replace PAGE_URL with your page's canonical URL variable--}}
+                                    {{--this.page.identifier = "job_{{ $job->created_at.".html" }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable--}}
+                                {{--};--}}
+
+                                {{--(function() { // DON'T EDIT BELOW THIS LINE--}}
+                                    {{--var d = document, s = d.createElement('script');--}}
+                                    {{--s.src = 'https://hrstategy.disqus.com/embed.js';--}}
+                                    {{--s.setAttribute('data-timestamp', +new Date());--}}
+                                    {{--(d.head || d.body).appendChild(s);--}}
+                                {{--})();--}}
+                            {{--</script>--}}
+                            {{--<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>--}}
+
+                            {{--<div id="disqus_thread"></div>--}}
                             <script>
 
                                 /**
                                  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
                                  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
+                                /*
                                 var disqus_config = function () {
-                                    this.page.url = "{{ request()->url() }}";;  // Replace PAGE_URL with your page's canonical URL variable
+                                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                };
+                                */
+                                var disqus_config = function () {
+                                    this.page.url = "{{ request()->url() }}";  // Replace PAGE_URL with your page's canonical URL variable
                                     this.page.identifier = "job_{{ $job->created_at.".html" }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                                 };
-
                                 (function() { // DON'T EDIT BELOW THIS LINE
                                     var d = document, s = d.createElement('script');
-                                    s.src = 'https://hrstategy.disqus.com/embed.js';
+                                    s.src = 'https://hrstrategyvietnam-1.disqus.com/embed.js';
                                     s.setAttribute('data-timestamp', +new Date());
                                     (d.head || d.body).appendChild(s);
                                 })();

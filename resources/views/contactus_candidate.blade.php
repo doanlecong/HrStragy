@@ -74,7 +74,16 @@
                                         </label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control " required id="address_can">
+                                        @if(!empty($addresses) && count($addresses) > 0)
+                                            <select name="addresses" class="form-control"  required id="address_can">
+                                                <option value="All Locations">All Locations</option>
+                                                @foreach($addresses as $province)
+                                                    <option value="{{ $province->name." - ".(@$province->country->name ?? '') }}">{{ $province->name." - ".(@$province->country->name ?? '') }}</option>
+                                                @endforeach    
+                                            </select>
+                                        @else 
+                                            <input type="text" class="form-control " required id="address_can">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +119,17 @@
                                         </label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="form-control " required id="industry_can">
+                                        @if(!empty($jobTypes) && count($jobTypes) > 0)
+                                            <select name="industry" class="form-control" required id="industry_can">
+                                                <option value="All Industries">All Industries</option>
+                                                @foreach($jobTypes as $jobType)
+                                                    <option value="{{ $jobType->name }}">{{ $jobType->abbr." - ".$jobType->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        @else
+                                            <input type="text" class="form-control " required id="industry_can">
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +141,19 @@
                                         </label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="form-control " required id="language_skill_can">
+                                            <select class="form-control" name="language_skill_can" id="language_skill_can" required>
+                                            <option value="All Languages">All Languages</option>
+                                            <option value="English">English</option>
+                                            <option value="Japan">Japan</option>
+                                            <option value="China">China</option>
+                                            <option value="English and Japan">English and Japan</option>
+                                            <option value="English and China">Englist and China</option>
+                                            <option value="China and Japan">China and Japan</option>
+                                            <option value="French">French</option>
+                                            <option value="Itaty">Italy</option>
+                                            <option value="Russia">Russia</option>
+                                        </select>
+                                        {{--<input type="text" class="form-control " required id="language_skill_can">--}}
                                     </div>
                                 </div>
                             </div>

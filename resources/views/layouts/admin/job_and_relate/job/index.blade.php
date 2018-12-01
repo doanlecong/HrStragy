@@ -29,9 +29,11 @@
                                 <div class="input-group mb-3">
                                     <select name="type_job" id="type_jobs" class="form-control" multiple>
                                         <option value="">All Categories</option>
-                                        @foreach($jobTypes as $jobType)
-                                            <option value="{{ $jobType->id }}">{{$jobType->abbr}} -- {{ $jobType->name }}</option>
-                                        @endforeach
+                                        @if(!empty($jobTypes) && count($jobTypes) > 0)
+                                            @foreach($jobTypes as $jobType)
+                                                <option value="{{ $jobType->id }}">{{$jobType->abbr}} -- {{ $jobType->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -40,9 +42,11 @@
                                 <div class="input-group mb-3">
                                     <select name="type_job" id="provinces" class="form-control" multiple>
                                         <option value="">All Locations</option>
-                                        @foreach($provinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                        @endforeach
+                                        @if(!empty($provinces) && count($provinces) > 0)
+                                            @foreach($provinces as $province)
+                                                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>

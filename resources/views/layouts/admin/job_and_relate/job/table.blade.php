@@ -54,7 +54,7 @@
                              style="width: 50px; height: 50px;">
                     @endif
                 </td>
-                <td>{{ strip_tags(mb_substr($t->company->name,0, 100)) }}</td>
+                <td>{{ strip_tags(mb_substr(@$t->company->name ?? '',0, 100)) }}</td>
                 <td>{{ strip_tags(mb_substr($t->salary, 0, 30)) }}</td>
                 <td>{{ $t->time_from }} -- {{ $t->time_to }}</td>
                 <td>{{ $t->number_apply }} <button class="btn background-green white-text box-shadown-light-dark view-relate-content" data-href="{{ route('job.viewCandidateList', $t->id) }}"><i class="fa fa-bars" aria-hidden="true"></i></button></td>

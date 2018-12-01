@@ -16,14 +16,14 @@
             <tr id="row{{$t->id}}">
                 <td>{{$t->id}}</td>
                 <td title="{{ strip_tags($t->email)}}">{{ strip_tags(mb_substr($t->email,0, 100))}}</td>
-                <td>{{ $t->jobType->abbr." -- ".strip_tags(mb_substr($t->jobType->name,0, 100)) }}</td>
-                <td>{{ $t->province->name." -- ".$t->province->country->name }}</td>
+                <td>{{ !empty($t->jobType) ? $t->jobType->abbr." -- ".strip_tags(mb_substr($t->jobType->name,0, 100)) : ''}}</td>
+                <td>{{ !empty($t->province) ? $t->province->name." -- ".(!empty($t->province->country) ? $t->province->country->name : '')  : ''   }}</td>
 
                 <td>{{ $t->created_at->format('F d, Y') }}</td>
                 <td>
                     {{--<a href="{{ route('job.createJobForCompany', $t->id) }}" title="Add new job for this Company"--}}
-                       {{--class="btn background-green white-text box-shadown-light-dark mr-1 mt-1"--}}
-                       {{--style="margin-right: 3px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
+                    {{--class="btn background-green white-text box-shadown-light-dark mr-1 mt-1"--}}
+                    {{--style="margin-right: 3px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                     <button title="Delete" class="btn btn-danger box-shadown-light-dark mt-1"
                             style="margin-right: 3px;"
                             onclick="deleteService('{{ route('mailsubscriber.delete', $t->id) }}', {{ $t->id }})">
@@ -40,4 +40,8 @@
     @endif
     </tbody>
 </table>
-{{ $sub->links() }}
+@if(!empty($arrSearch))
+    {{ $sub->appends($arrSearch)->links() }}
+@else
+    {{ $sub->links() }}
+@endif
